@@ -1,6 +1,5 @@
 package com.skillrisers.streetfighter.sprites;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import com.skillrisers.streetfighter.utils.GameConstants;
@@ -16,7 +15,10 @@ public class Player extends CommonPlayer implements GameConstants {
 		h = 250;
 		speed = 0;
 		playerImg = ImageIO.read(Player.class.getResource(KEN_IMAGE));
-		loadIdleImages();
+		for(int loop=0;loop<4;loop++){
+			loadIdleImages();
+			Thread.sleep(1000);
+		}
 	}
 	
 	private void loadIdleImages() {
