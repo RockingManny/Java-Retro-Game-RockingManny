@@ -30,7 +30,7 @@ public class Player extends CommonPlayer implements GameConstants {
 	public BufferedImage defaultImage() {
 		//X = 47 Y = 242 Width = 110 Height = 245
 		//return playerImg.getSubimage(47, 242, 110, 245);
-		if(imageIndex > 4) {
+		if(imageIndex >= 4) {
 			imageIndex = 0;
 		}
 		BufferedImage img = idleImages[imageIndex];
