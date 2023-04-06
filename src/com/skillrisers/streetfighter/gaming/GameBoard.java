@@ -2,6 +2,8 @@ package com.skillrisers.streetfighter.gaming;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -9,6 +11,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import com.skillrisers.streetfighter.sprites.OpponentPlayer;
 import com.skillrisers.streetfighter.sprites.Player;
@@ -18,13 +21,28 @@ public class GameBoard extends JPanel implements GameConstants {
 	BufferedImage bgImage;
 	private Player player;
 	private OpponentPlayer oppPlayer;
+	private Timer timer;
 	public GameBoard() throws Exception {
 		player = new Player();
 		oppPlayer = new OpponentPlayer();
 		setFocusable(true);
 		loadBackground();
 		bindEvents();
+		gameLoop();
 	}
+
+	private void gameLoop(){
+		timer = new Timer(100, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				repaint();
+			}
+
+		} );
+		timer.start();
+	}
+
 	@Override
 	public void paintComponent(Graphics pen) {
 		//System.out.println("Paint Component...");
@@ -62,6 +80,7 @@ public class GameBoard extends JPanel implements GameConstants {
 				if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 					player.setSpeed(-SPEED);
 					player.move();
+					player.setCurrentMove(WALK);
 					repaint();
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -86,7 +105,7 @@ public class GameBoard extends JPanel implements GameConstants {
 	
 	private void loadBackground() {
 		try {
-			bgImage = ImageIO.read(GameBoard.class.getResource("bg_2.jpg"));
+			bgImage = ImageIO.read(GameBoard.class.getResource(BACKGROUND));
 		}
 		catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Something went wrong...");

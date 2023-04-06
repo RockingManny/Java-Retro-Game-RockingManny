@@ -12,9 +12,9 @@ public class OpponentPlayer extends CommonPlayer implements GameConstants {
 		x = SCREENWIDTH - 500;
 		y = GROUND;
 		w = 200;
-		h = 250;
+		h = 300;
 		speed = 0;
-		playerImg = ImageIO.read(Player.class.getResource(RYU_IMAGE));
+		playerImg = ImageIO.read(Player.class.getResource(OPPONENT_IMAGE));
 	}
 	
 	@Override

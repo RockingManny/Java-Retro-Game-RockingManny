@@ -1,0 +1,1 @@
+Sprite Extractor: https://getspritexy.netlify.app/
