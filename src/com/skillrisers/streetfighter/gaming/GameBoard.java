@@ -79,29 +79,33 @@ public class GameBoard extends JPanel implements GameConstants {
 			public void keyPressed(KeyEvent e) {
 				//System.out.println("Key Pressed : " + e.getKeyCode());
 				if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+					player.setCurrentMove(WALK);
 					player.setSpeed(-SPEED);
 					player.move();
-					player.setCurrentMove(WALK);
 					repaint();
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					player.setCurrentMove(WALK);
 					player.setSpeed(SPEED);
 					player.move();
-					player.setCurrentMove(WALK);
 					repaint();
 				}
 				
 				if(e.getKeyCode() == KeyEvent.VK_A) {
+					oppPlayer.setCurrentMove(WALK);
 					oppPlayer.setSpeed(-SPEED);
 					oppPlayer.move();
-					player.setCurrentMove(WALK);
 					repaint();
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_D) {
+					oppPlayer.setCurrentMove(WALK);
 					oppPlayer.setSpeed(SPEED);
 					oppPlayer.move();
-					player.setCurrentMove(WALK);
 					repaint();
+				}
+				else if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+					// player.setCurrentMove(JUMP);
+					player.jump();
 				}
 			}
 		});
