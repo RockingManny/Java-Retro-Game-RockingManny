@@ -14,6 +14,7 @@ public class OpponentPlayer extends CommonPlayer {
 		y = GROUND;
 		w = 200;
 		h = 300;
+		force=0;
 		speed = 0;
 		playerImg = ImageIO.read(Player.class.getResource(OPPONENT_IMAGE));
 		loadIdleImages();
@@ -21,35 +22,33 @@ public class OpponentPlayer extends CommonPlayer {
 		loadJumpImages();
 	}
 	
-	
 	private void loadIdleImages() {
-		idleImages[0] = playerImg.getSubimage(2748, 37, 105, 232);
-		idleImages[1] = playerImg.getSubimage(2748, 37, 105, 232);
-		idleImages[2] = playerImg.getSubimage(2748, 37, 105, 232);
-		idleImages[3] = playerImg.getSubimage(2748, 37, 105, 232);
-		idleImages[4] = playerImg.getSubimage(2748, 37, 105, 232);
-		idleImages[5] = playerImg.getSubimage(2748, 37, 105, 232);
+		idleImages[0] = playerImg.getSubimage(6, 0, 69, 80);
+		idleImages[1] = playerImg.getSubimage(77, 0, 69, 80);
+		idleImages[2] = playerImg.getSubimage(146, 0, 69, 80);
+		idleImages[3] = playerImg.getSubimage(220, 0, 69, 80);
+		idleImages[4] = playerImg.getSubimage(295, 0, 69, 80);
+		idleImages[5] = playerImg.getSubimage(362, 0, 69, 80);
 	}
 
 	private void loadWalkImages() {
-		walkImages[0] = playerImg.getSubimage(2748, 37, 105, 232);
-		walkImages[1] = playerImg.getSubimage(2748, 37, 105, 232);
-		walkImages[2] = playerImg.getSubimage(2748, 37, 105, 232);
-		walkImages[3] = playerImg.getSubimage(2748, 37, 105, 232);
-		walkImages[4] = playerImg.getSubimage(2748, 37, 105, 232);
-		walkImages[5] = playerImg.getSubimage(2748, 37, 105, 232);
+		walkImages[0] = playerImg.getSubimage(6, 0, 69, 80);
+		walkImages[1] = playerImg.getSubimage(77, 0, 69, 80);
+		walkImages[2] = playerImg.getSubimage(146, 0, 69, 80);
+		walkImages[3] = playerImg.getSubimage(220, 0, 69, 80);
+		walkImages[4] = playerImg.getSubimage(295, 0, 69, 80);
+		walkImages[5] = playerImg.getSubimage(362, 0, 69, 80);
 	}
 
 	private void loadJumpImages() {
-		idleImages[0] = playerImg.getSubimage(2748, 37, 105, 232);
-		idleImages[1] = playerImg.getSubimage(2748, 37, 105, 232);
-		idleImages[2] = playerImg.getSubimage(2748, 37, 105, 232);
-		idleImages[3] = playerImg.getSubimage(2748, 37, 105, 232);
-		idleImages[4] = playerImg.getSubimage(2748, 37, 105, 232);
-		idleImages[5] = playerImg.getSubimage(2748, 37, 105, 232);
+		idleImages[0] = playerImg.getSubimage(6, 0, 69, 80);
+		idleImages[1] = playerImg.getSubimage(77, 0, 69, 80);
+		idleImages[2] = playerImg.getSubimage(146, 0, 69, 80);
+		idleImages[3] = playerImg.getSubimage(220, 0, 69, 80);
+		idleImages[4] = playerImg.getSubimage(295, 0, 69, 80);
+		idleImages[5] = playerImg.getSubimage(362, 0, 69, 80);
 	}
 	
-
 	public BufferedImage printIdle() {
 		if(imageIndex >= 6) {
 			imageIndex = 0;
