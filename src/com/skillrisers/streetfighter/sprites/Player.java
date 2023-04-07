@@ -15,6 +15,7 @@ public class Player extends CommonPlayer implements GameConstants {
 		y = GROUND;
 		w = 200;
 		h = 300;
+		force=0;
 		speed = 0;
 		playerImg = ImageIO.read(Player.class.getResource(PLAYER_IMAGE));
 		loadIdleImages();
@@ -78,30 +79,17 @@ public class Player extends CommonPlayer implements GameConstants {
 		return img;
 	}
 	
-	// public void jump(){
-	// 	force = -15;
-	// 	y = y + force;
-	// }
-	// public void fall(){
-	// 	if(y>=GROUND)
-	// 	{
-	// 		return;
+	// @Override
+	// public BufferedImage defaultImage() {
+	// 	if(currentMove == WALK) {
+	// 		return printWalk();
 	// 	}
-	// 	force = force + GRAVITY;
-	// 	y = y + force;
+	// 	else if(currentMove == KICK) {
+	// 		return printJump();
+	// 	}
+	// 	else {
+	// 		return printIdle();
+	// 	}
 	// }
-
-	@Override
-	public BufferedImage defaultImage() {
-		if(currentMove == WALK) {
-			return printWalk();
-		}
-		else if(currentMove == KICK) {
-			return printJump();
-		}
-		else {
-			return printIdle();
-		}
-	}
 }
 	

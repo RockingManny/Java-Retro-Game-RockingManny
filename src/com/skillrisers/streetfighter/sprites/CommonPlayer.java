@@ -2,8 +2,9 @@ package com.skillrisers.streetfighter.sprites;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import com.skillrisers.streetfighter.utils.GameConstants;
 
-public abstract class CommonPlayer {
+public abstract class CommonPlayer implements GameConstants {
 	protected int x;
 	protected int y;
 	protected int w;
@@ -12,26 +13,60 @@ public abstract class CommonPlayer {
 	protected BufferedImage playerImg;
 	protected int imageIndex;
 	protected int currentMove;
-	public abstract BufferedImage defaultImage();
+	protected int force;
+	public abstract BufferedImage printIdle();
+	public abstract BufferedImage printWalk();
+	public abstract BufferedImage printJump();
 	
 	
 	public int getCurrentMove() {return currentMove;}
 	public void setCurrentMove(int currentMove) {this.currentMove = currentMove;}
-	public void move() {x = x + speed;}
+	
 	public int getX() {return x;}
 	public void setX(int x) {this.x = x;}
+	
 	public int getY() {return y;}
 	public void setY(int y) {this.y = y;}
+	
 	public int getW() {return w;}
 	public void setW(int w) {this.w = w;}
+	
 	public int getH() {return h;}
 	public void setH(int h) {this.h = h;}
+	
+	// public int getForce() {return force;}
+	//	public void setForce(int force) {this.force = force;}
+
 	public int getSpeed() {return speed;}
 	public void setSpeed(int speed) {this.speed = speed;}
+	
 	public BufferedImage getPlayerImg() {return playerImg;}
 	public void setPlayerImg(BufferedImage playerImg) {this.playerImg = playerImg;}
-
+	
+	public void move() {x = x + speed;}
+	public void jump() {force = -50; y = y + force;}
+	public void fall() {
+		if(y + force > GROUND) {
+			return;
+		}
+		force = force + GRAVITY;
+		y = y + force;
+	}
+	
 	public void paintPlayer(Graphics pen) {
 		pen.drawImage(defaultImage(), x, y, w, h, null);
 	}
+
+	public BufferedImage defaultImage() {
+		if(currentMove == WALK) {
+			return printWalk();
+		}
+		else if(currentMove == KICK) {
+			return printJump();
+		}
+		else {
+			return printIdle();
+		}
+	}
+
 }
