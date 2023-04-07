@@ -42,11 +42,13 @@ public abstract class CommonPlayer implements GameConstants {
 	
 	public BufferedImage getPlayerImg() {return playerImg;}
 	public void setPlayerImg(BufferedImage playerImg) {this.playerImg = playerImg;}
+	public void flipPlayerImg() {this.playerImg = flip(defaultImage());}
 	
 	public void move() {x = x + speed;}
-	public void jump() {force = -50; y = y + force;}
+	public void jump() {force = -10; y = y + force;}
 	public void fall() {
 		if(y + force > GROUND) {
+			y = GROUND;
 			return;
 		}
 		force = force + GRAVITY;

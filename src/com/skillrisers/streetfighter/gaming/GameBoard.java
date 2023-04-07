@@ -32,12 +32,20 @@ public class GameBoard extends JPanel implements GameConstants {
 	}
 
 	private void gameLoop(){
-		timer = new Timer(100, new ActionListener() {
+		timer = new Timer(50, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				repaint();
+				if(player.getX()>oppPlayer.getX())
+				{
+					player.jump();
+					// player.flipPlayer();
+					// oppPlayer.flipPlayer();
+					repaint();
+				}
 				player.fall();
+				oppPlayer.fall();
 			}
 
 		} );
@@ -49,6 +57,7 @@ public class GameBoard extends JPanel implements GameConstants {
 		//System.out.println("Paint Component...");
 		paintBackground(pen);
 		player.paintPlayer(pen);
+		// oppPlayer.flipPlayer();
 		oppPlayer.paintFlipPlayer(pen);
 	}
 	private void paintBackground(Graphics pen) {
@@ -103,9 +112,13 @@ public class GameBoard extends JPanel implements GameConstants {
 					oppPlayer.move();
 					repaint();
 				}
-				else if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+				else if(e.getKeyCode() == KeyEvent.VK_UP) {
 					// player.setCurrentMove(JUMP);
 					player.jump();
+				}
+				else if(e.getKeyCode() == KeyEvent.VK_W) {
+					// player.setCurrentMove(JUMP);
+					oppPlayer.jump();
 				}
 			}
 		});
