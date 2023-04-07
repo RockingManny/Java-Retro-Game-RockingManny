@@ -1,10 +1,14 @@
 package com.skillrisers.streetfighter.utils;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+
 public interface GameConstants {
 	String TITLE = ConfigReader.getValue("game.title");
-	int SCREENWIDTH = Integer.parseInt(ConfigReader.getValue("game.width"));
-	int SCREENHEIGHT = Integer.parseInt(ConfigReader.getValue("game.height"));
-	int GROUND = Integer.parseInt(ConfigReader.getValue("game.height")) - 450;
+	GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	int SCREENWIDTH = graphicsDevice.getDisplayMode().getWidth();
+	int SCREENHEIGHT = graphicsDevice.getDisplayMode().getHeight();
+	int GROUND = SCREENHEIGHT - 450;
 	String BACKGROUND = ConfigReader.getValue("game.background.img");
 	String OPPONENT_IMAGE = ConfigReader.getValue("oppPlayer.img");
 	String PLAYER_IMAGE = ConfigReader.getValue("player.img");
@@ -14,4 +18,5 @@ public interface GameConstants {
 	int KICK = 3;
 	int PUNCH = 4;
 	int GRAVITY = 9;
+
 }
