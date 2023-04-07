@@ -32,11 +32,12 @@ public class GameBoard extends JPanel implements GameConstants {
 	}
 
 	private void gameLoop(){
-		timer = new Timer(100, new ActionListener() {
+		timer = new Timer(70, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				repaint();
+				player.fall();
 			}
 
 		} );
@@ -54,10 +55,10 @@ public class GameBoard extends JPanel implements GameConstants {
 		
 		pen.drawImage(bgImage, 0,0,SCREENWIDTH, SCREENHEIGHT, null);
 		
-		pen.setColor(Color.GREEN);
-		pen.fillRect(100, 10, 600,50);
-		pen.setColor(Color.GREEN);
-		pen.fillRect(900, 10, 600,50);
+		// pen.setColor(Color.GREEN);
+		// pen.fillRect(100, 10, 600,50);
+		// pen.setColor(Color.GREEN);
+		// pen.fillRect(900, 10, 600,50);
 	}
 	
 	void bindEvents() {
@@ -86,17 +87,20 @@ public class GameBoard extends JPanel implements GameConstants {
 				else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					player.setSpeed(SPEED);
 					player.move();
+					player.setCurrentMove(WALK);
 					repaint();
 				}
 				
 				if(e.getKeyCode() == KeyEvent.VK_A) {
 					oppPlayer.setSpeed(-SPEED);
 					oppPlayer.move();
+					player.setCurrentMove(WALK);
 					repaint();
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_D) {
 					oppPlayer.setSpeed(SPEED);
 					oppPlayer.move();
+					player.setCurrentMove(WALK);
 					repaint();
 				}
 			}

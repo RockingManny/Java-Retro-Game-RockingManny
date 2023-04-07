@@ -2,9 +2,8 @@ package com.skillrisers.streetfighter.sprites;
 
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-import com.skillrisers.streetfighter.utils.GameConstants;
 
-public class Player extends CommonPlayer implements GameConstants {
+public class Player extends CommonPlayer {
 	
 	private BufferedImage idleImages[] = new BufferedImage[6];
 	private BufferedImage walkImages[] = new BufferedImage[6];
@@ -15,6 +14,7 @@ public class Player extends CommonPlayer implements GameConstants {
 		y = GROUND;
 		w = 200;
 		h = 300;
+		force=0;
 		speed = 0;
 		playerImg = ImageIO.read(Player.class.getResource(PLAYER_IMAGE));
 		loadIdleImages();
@@ -76,32 +76,6 @@ public class Player extends CommonPlayer implements GameConstants {
 		BufferedImage img = jumpImages[imageIndex];
 		imageIndex++;
 		return img;
-	}
-	
-	// public void jump(){
-	// 	force = -15;
-	// 	y = y + force;
-	// }
-	// public void fall(){
-	// 	if(y>=GROUND)
-	// 	{
-	// 		return;
-	// 	}
-	// 	force = force + GRAVITY;
-	// 	y = y + force;
-	// }
-
-	@Override
-	public BufferedImage defaultImage() {
-		if(currentMove == WALK) {
-			return printWalk();
-		}
-		else if(currentMove == KICK) {
-			return printJump();
-		}
-		else {
-			return printIdle();
-		}
 	}
 }
 	
