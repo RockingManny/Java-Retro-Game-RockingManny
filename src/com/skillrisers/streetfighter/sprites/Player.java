@@ -23,30 +23,30 @@ public class Player extends CommonPlayer {
 	}
 	
 	private void loadIdleImages() {
-		idleImages[0] = playerImg.getSubimage(9,36,52,84);
-		idleImages[1] = playerImg.getSubimage(63,36,52,84);
-		idleImages[2] = playerImg.getSubimage(116,36,52,84);
-		idleImages[3] = playerImg.getSubimage(168,36,52,84);
-		idleImages[4] = playerImg.getSubimage(222,36,52,84);
-		idleImages[5] = playerImg.getSubimage(276,36,52,84);
+		idleImages[0] = playerImg.getSubimage(9,36,52,86);
+		idleImages[1] = playerImg.getSubimage(62,36,52,86);
+		idleImages[2] = playerImg.getSubimage(114,36,52,86);
+		idleImages[3] = playerImg.getSubimage(167,36,52,86);
+		idleImages[4] = playerImg.getSubimage(221,36,52,86);
+		idleImages[5] = playerImg.getSubimage(276,36,52,86);
 	}
 
 	private void loadWalkImages() {
-		walkImages[0] = playerImg.getSubimage(9,36,52,84);
-		walkImages[1] = playerImg.getSubimage(63,36,52,84);
-		walkImages[2] = playerImg.getSubimage(116,36,52,84);
-		walkImages[3] = playerImg.getSubimage(168,36,52,84);
-		walkImages[4] = playerImg.getSubimage(222,36,52,84);
-		walkImages[5] = playerImg.getSubimage(276,36,52,84);
+		walkImages[0] = playerImg.getSubimage(9,36,52,86);
+		walkImages[1] = playerImg.getSubimage(62,36,52,86);
+		walkImages[2] = playerImg.getSubimage(114,36,52,86);
+		walkImages[3] = playerImg.getSubimage(167,36,52,86);
+		walkImages[4] = playerImg.getSubimage(221,36,52,86);
+		walkImages[5] = playerImg.getSubimage(276,36,52,86);
 	}
 
 	private void loadJumpImages() {
-		idleImages[0] = playerImg.getSubimage(9,36,52,84);
-		idleImages[1] = playerImg.getSubimage(63,36,52,84);
-		idleImages[2] = playerImg.getSubimage(116,36,52,84);
-		idleImages[3] = playerImg.getSubimage(168,36,52,84);
-		idleImages[4] = playerImg.getSubimage(222,36,52,84);
-		idleImages[5] = playerImg.getSubimage(276,36,52,84);
+		jumpImages[0] = playerImg.getSubimage(9,36,52,86);
+		jumpImages[1] = playerImg.getSubimage(62,36,52,86);
+		jumpImages[2] = playerImg.getSubimage(114,36,52,86);
+		jumpImages[3] = playerImg.getSubimage(167,36,52,86);
+		jumpImages[4] = playerImg.getSubimage(221,36,52,86);
+		jumpImages[5] = playerImg.getSubimage(276,36,52,86);
 	}
 	
 	public BufferedImage printIdle() {
