@@ -66,12 +66,12 @@ public class GameBoard extends JPanel implements GameConstants {
 			
 			@Override
 			public void keyTyped(KeyEvent e) {
-				System.out.println("Key Typed : " + e.getKeyCode());
+				// System.out.println("Key Typed : " + e.getKeyCode());
 			}
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				System.out.println("Key Released : " + e.getKeyCode());
+				// System.out.println("Key Released : " + e.getKeyCode());
 				player.setSpeed(0);
 			}
 			
