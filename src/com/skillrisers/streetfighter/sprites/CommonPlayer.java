@@ -56,6 +56,9 @@ public abstract class CommonPlayer implements GameConstants {
 	public void paintPlayer(Graphics pen) {
 		pen.drawImage(defaultImage(), x, y, w, h, null);
 	}
+	public void paintFlipPlayer(Graphics pen) {
+		pen.drawImage(flip(defaultImage()), x, y, w, h, null);
+	}
 
 	public BufferedImage defaultImage() {
 		if(currentMove == WALK) {
@@ -67,6 +70,16 @@ public abstract class CommonPlayer implements GameConstants {
 		else {
 			return printIdle();
 		}
+	}
+
+	public BufferedImage flip(BufferedImage sprite) {
+        BufferedImage img = new BufferedImage(sprite.getWidth(),sprite.getHeight(),BufferedImage.TYPE_INT_ARGB);
+		for(int xx = sprite.getWidth()-1;xx>0;xx--) {
+			for(int yy = 0;yy < sprite.getHeight();yy++) {
+				img.setRGB(sprite.getWidth()-xx, yy, sprite.getRGB(xx, yy));
+			}
+		}
+		return img;
 	}
 
 }

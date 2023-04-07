@@ -49,7 +49,7 @@ public class GameBoard extends JPanel implements GameConstants {
 		//System.out.println("Paint Component...");
 		paintBackground(pen);
 		player.paintPlayer(pen);
-		oppPlayer.paintPlayer(pen);
+		oppPlayer.paintFlipPlayer(pen);
 	}
 	private void paintBackground(Graphics pen) {
 		
