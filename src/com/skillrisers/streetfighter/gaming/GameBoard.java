@@ -114,11 +114,16 @@ public class GameBoard extends JPanel implements GameConstants {
 				}
 				
 				if(e.getKeyCode() == KeyEvent.VK_UP) {
+					player.setCurrentMove(JUMP);
+					player.jump();
+				}
+				else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 					// player.setCurrentMove(JUMP);
 					player.jump();
 				}
+
 				if(e.getKeyCode() == KeyEvent.VK_W) {
-					// player.setCurrentMove(JUMP);
+					player.setCurrentMove(JUMP);
 					oppPlayer.jump();
 				}
 			}
