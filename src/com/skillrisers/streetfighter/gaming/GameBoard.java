@@ -80,13 +80,13 @@ public class GameBoard extends JPanel implements GameConstants {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// System.out.println("Key Released : " + e.getKeyCode());
+				System.out.println("Key Released : " + e.getKeyCode());
 				player.setSpeed(0);
 			}
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				//System.out.println("Key Pressed : " + e.getKeyCode());
+				System.out.println("Key Pressed : " + e.getKeyCode());
 				if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 					player.setCurrentMove(WALK);
 					player.setSpeed(-SPEED);
