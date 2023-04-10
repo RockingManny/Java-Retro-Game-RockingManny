@@ -17,6 +17,7 @@ public abstract class CommonPlayer implements GameConstants {
 	public abstract BufferedImage printIdle();
 	public abstract BufferedImage printWalk();
 	public abstract BufferedImage printJump();
+	public abstract BufferedImage printCrouch();
 	
 	
 	public int getCurrentMove() {return currentMove;}
@@ -45,6 +46,7 @@ public abstract class CommonPlayer implements GameConstants {
 	public void flipPlayerImg() {this.playerImg = flip(defaultImage());}
 	
 	public void move() {x = x + speed;}
+	public void crouch() {}
 	public void jump() {force = -10; y = y + force;}
 	public void fall() {
 		if(y + force > GROUND) {
@@ -66,8 +68,11 @@ public abstract class CommonPlayer implements GameConstants {
 		if(currentMove == WALK) {
 			return printWalk();
 		}
-		else if(currentMove == KICK) {
+		else if(currentMove == JUMP) {
 			return printJump();
+		}
+		else if(currentMove == CROUCH) {
+			return printCrouch();
 		}
 		else {
 			return printIdle();

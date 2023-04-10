@@ -8,6 +8,7 @@ public class OpponentPlayer extends CommonPlayer {
 	private BufferedImage idleImages[] = new BufferedImage[6];
 	private BufferedImage walkImages[] = new BufferedImage[6];
 	private BufferedImage jumpImages[] = new BufferedImage[6];
+	private BufferedImage crouchImages[] = new BufferedImage[6];
 
 	public OpponentPlayer() throws Exception {
 		x = SCREENWIDTH - 500;
@@ -20,6 +21,7 @@ public class OpponentPlayer extends CommonPlayer {
 		loadIdleImages();
 		loadWalkImages();
 		loadJumpImages();
+		loadCrouchImages();
 	}
 	
 	private void loadIdleImages() {
@@ -48,7 +50,16 @@ public class OpponentPlayer extends CommonPlayer {
 		idleImages[4] = playerImg.getSubimage(295, 0, 69, 80);
 		idleImages[5] = playerImg.getSubimage(362, 0, 69, 80);
 	}
-	
+
+	private void loadCrouchImages() {
+		idleImages[0] = playerImg.getSubimage(6, 0, 69, 80);
+		idleImages[1] = playerImg.getSubimage(77, 0, 69, 80);
+		idleImages[2] = playerImg.getSubimage(146, 0, 69, 80);
+		idleImages[3] = playerImg.getSubimage(220, 0, 69, 80);
+		idleImages[4] = playerImg.getSubimage(295, 0, 69, 80);
+		idleImages[5] = playerImg.getSubimage(362, 0, 69, 80);
+	}
+
 	public BufferedImage printIdle() {
 		if(imageIndex >= 6) {
 			imageIndex = 0;
@@ -74,6 +85,16 @@ public class OpponentPlayer extends CommonPlayer {
 			currentMove = IDLE;
 		}
 		BufferedImage img = jumpImages[imageIndex];
+		imageIndex++;
+		return img;
+	}
+
+	public BufferedImage printCrouch() {
+		if(imageIndex >= 2) {
+			imageIndex = 0;
+			currentMove = CROUCH;
+		}
+		BufferedImage img = crouchImages[imageIndex];
 		imageIndex++;
 		return img;
 	}

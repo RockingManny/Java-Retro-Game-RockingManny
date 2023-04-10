@@ -32,7 +32,7 @@ public class GameBoard extends JPanel implements GameConstants {
 	}
 
 	private void gameLoop(){
-		timer = new Timer(50, new ActionListener() {
+		timer = new Timer(100, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
@@ -91,40 +91,48 @@ public class GameBoard extends JPanel implements GameConstants {
 					player.setCurrentMove(WALK);
 					player.setSpeed(-SPEED);
 					player.move();
-					repaint();
+					// repaint();
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					player.setCurrentMove(WALK);
 					player.setSpeed(SPEED);
 					player.move();
-					repaint();
+					// repaint();
 				}
 				
 				if(e.getKeyCode() == KeyEvent.VK_A) {
 					oppPlayer.setCurrentMove(WALK);
 					oppPlayer.setSpeed(-SPEED);
 					oppPlayer.move();
-					repaint();
+					// repaint();
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_D) {
 					oppPlayer.setCurrentMove(WALK);
 					oppPlayer.setSpeed(SPEED);
 					oppPlayer.move();
-					repaint();
+					// repaint();
 				}
 				
 				if(e.getKeyCode() == KeyEvent.VK_UP) {
 					player.setCurrentMove(JUMP);
 					player.jump();
+					// repaint();
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-					// player.setCurrentMove(JUMP);
-					player.jump();
+					player.setCurrentMove(CROUCH);
+					player.crouch();
+					// repaint();
 				}
 
 				if(e.getKeyCode() == KeyEvent.VK_W) {
-					player.setCurrentMove(JUMP);
+					player.setCurrentMove(CROUCH);
 					oppPlayer.jump();
+					// repaint();
+				}
+				else if(e.getKeyCode() == KeyEvent.VK_S) {
+					oppPlayer.setCurrentMove(CROUCH);
+					oppPlayer.crouch();
+					// repaint();
 				}
 			}
 		});
