@@ -18,9 +18,14 @@ public abstract class CommonPlayer implements GameConstants {
 	public abstract BufferedImage printWalk();
 	public abstract BufferedImage printJump();
 	public abstract BufferedImage printCrouch();
+	public abstract BufferedImage printLAttack();
+	public abstract BufferedImage printHit();
 	protected boolean isCollide;
+	protected boolean isAttacking;
 	
 	
+	public boolean isAttacking() {return isAttacking;}
+	public void setAttacking(boolean isAttacking) {this.isAttacking = isAttacking;}
 	public boolean isCollide() {return isCollide;}
 	public void setCollide(boolean isCollide) {this.isCollide = isCollide;}
 	public int getCurrentMove() {return currentMove;}
@@ -80,6 +85,7 @@ public abstract class CommonPlayer implements GameConstants {
 		else {
 			return printIdle();
 		}
+		
 	}
 
 	public BufferedImage flip(BufferedImage sprite) {
