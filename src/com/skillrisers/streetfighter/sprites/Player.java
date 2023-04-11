@@ -9,6 +9,7 @@ public class Player extends CommonPlayer {
 	private BufferedImage walkImages[] = new BufferedImage[6];
 	private BufferedImage jumpImages[] = new BufferedImage[6];
 	private BufferedImage crouchImages[] = new BufferedImage[2];
+	private BufferedImage LAttackImages[] = new BufferedImage[2];
 	
 	public Player() throws Exception {
 		x = 150;
@@ -56,6 +57,11 @@ public class Player extends CommonPlayer {
 		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
 		crouchImages[1] = playerImg.getSubimage(157,295,68,84);
 	}
+	private void loadLAttackImages() {
+		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
+		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
+		crouchImages[1] = playerImg.getSubimage(157,295,68,84);
+	}
 	
 	public BufferedImage printIdle() {
 		if(imageIndex >= 6) {
@@ -95,5 +101,16 @@ public class Player extends CommonPlayer {
 		imageIndex++;
 		return img;
 	}
+
+	public BufferedImage printLAttack() {
+		if(imageIndex >= 2) {
+			imageIndex = 0;
+			currentMove = CROUCH;
+		}
+		BufferedImage img = LAttackImages[imageIndex];
+		imageIndex++;
+		return img;
+	}
+
 }
 	

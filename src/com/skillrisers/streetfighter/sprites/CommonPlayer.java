@@ -18,8 +18,11 @@ public abstract class CommonPlayer implements GameConstants {
 	public abstract BufferedImage printWalk();
 	public abstract BufferedImage printJump();
 	public abstract BufferedImage printCrouch();
+	protected boolean isCollide;
 	
 	
+	public boolean isCollide() {return isCollide;}
+	public void setCollide(boolean isCollide) {this.isCollide = isCollide;}
 	public int getCurrentMove() {return currentMove;}
 	public void setCurrentMove(int currentMove) {this.currentMove = currentMove;}
 	
@@ -45,7 +48,7 @@ public abstract class CommonPlayer implements GameConstants {
 	public void setPlayerImg(BufferedImage playerImg) {this.playerImg = playerImg;}
 	public void flipPlayerImg() {this.playerImg = flip(defaultImage());}
 	
-	public void move() {x = x + speed;}
+	public void move() {if(!isCollide){x = x + speed;}}
 	public void crouch() {}
 	public void jump() {force = -10; y = y + force;}
 	public void fall() {

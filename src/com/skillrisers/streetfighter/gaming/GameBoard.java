@@ -39,18 +39,40 @@ public class GameBoard extends JPanel implements GameConstants {
 				repaint();
 				if(player.getX()>oppPlayer.getX())
 				{
-					player.jump();
+					
 					// player.flipPlayer();
 					// oppPlayer.flipPlayer();
-					repaint();
+					// repaint();
 				}
 				player.fall();
 				oppPlayer.fall();
+				collision();
 			}
 
 		} );
 		timer.start();
 	}
+
+	private boolean isCollide(){
+		int xDistance = Math.abs(player.getX()-oppPlayer.getX());
+		int yDistance = Math.abs(player.getY()-oppPlayer.getY());
+		int maxH= Math.max(player.getH(), oppPlayer.getH());
+		int maxW= Math.max(player.getW(), oppPlayer.getW());
+		return xDistance <= maxW && yDistance <= maxH;
+	}
+
+	private void collision(){
+		if(isCollide()){
+			System.out.println("Collision!!");
+			player.setCollide(true);
+			player.setSpeed(0);
+		}
+		else{
+			player.setSpeed(SPEED);
+			player.setCollide(false);
+		}
+	}
+
 
 	@Override
 	public void paintComponent(Graphics pen) {
@@ -64,10 +86,10 @@ public class GameBoard extends JPanel implements GameConstants {
 		
 		pen.drawImage(bgImage, 0,0,SCREENWIDTH, SCREENHEIGHT, null);
 		
-		// pen.setColor(Color.GREEN);
-		// pen.fillRect(100, 10, 600,50);
-		// pen.setColor(Color.GREEN);
-		// pen.fillRect(900, 10, 600,50);
+		pen.setColor(Color.GREEN);
+		pen.fillRect(100, 10, 600,50);
+		pen.setColor(Color.GREEN);
+		pen.fillRect(900, 10, 600,50);
 	}
 	
 	void bindEvents() {
@@ -90,6 +112,7 @@ public class GameBoard extends JPanel implements GameConstants {
 				if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 					player.setCurrentMove(WALK);
 					player.setSpeed(-SPEED);
+					player.setCollide(false);
 					player.move();
 					// repaint();
 				}
