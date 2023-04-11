@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+// import com.skillrisers.streetfighter.sprites.Health;
 import com.skillrisers.streetfighter.sprites.OpponentPlayer;
 import com.skillrisers.streetfighter.sprites.Player;
 import com.skillrisers.streetfighter.utils.GameConstants;
@@ -22,6 +23,8 @@ public class GameBoard extends JPanel implements GameConstants {
 	private Player player;
 	private OpponentPlayer oppPlayer;
 	private Timer timer;
+	// private Health playerHealth;
+	// private Health oppPlayerHealth;
 	public GameBoard() throws Exception {
 		player = new Player();
 		oppPlayer = new OpponentPlayer();
@@ -52,6 +55,24 @@ public class GameBoard extends JPanel implements GameConstants {
 		} );
 		timer.start();
 	}
+
+	// public void loadHealth(){
+	// 	oppPlayerHealth = new Health(30,Color.GREEN);
+	// 	playerHealth = new Health(SCREENWIDTH-600, Color.GREEN);
+	// }
+
+	// public void printHealth(Graphics pen){
+	// 	oppPlayerHealth.printHealth(pen);
+	// 	playerHealth.printHealth(pen);
+
+	// }
+
+	public void flipAll(Graphics pen){
+		player.paintFlipPlayer(pen);
+		oppPlayer.paintFlipPlayer(pen);
+		repaint();
+	}
+
 
 	private boolean isCollide(){
 		int xDistance = Math.abs(player.getX()-oppPlayer.getX());
@@ -89,6 +110,11 @@ public class GameBoard extends JPanel implements GameConstants {
 		player.paintPlayer(pen);
 		// oppPlayer.flipPlayer();
 		oppPlayer.paintFlipPlayer(pen);
+		if(player.getX()>oppPlayer.getX())
+		{
+			flipAll(pen);
+		}
+
 	}
 	private void paintBackground(Graphics pen) {
 		
