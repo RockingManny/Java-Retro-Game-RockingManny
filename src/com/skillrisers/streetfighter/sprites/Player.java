@@ -8,6 +8,9 @@ public class Player extends CommonPlayer {
 	private BufferedImage idleImages[] = new BufferedImage[6];
 	private BufferedImage walkImages[] = new BufferedImage[6];
 	private BufferedImage jumpImages[] = new BufferedImage[6];
+	private BufferedImage crouchImages[] = new BufferedImage[2];
+	private BufferedImage LAttackImages[] = new BufferedImage[2];
+	private BufferedImage hitImages[] = new BufferedImage[2];
 	
 	public Player() throws Exception {
 		x = 150;
@@ -20,8 +23,17 @@ public class Player extends CommonPlayer {
 		loadIdleImages();
 		loadWalkImages();
 		loadJumpImages();
+		loadCrouchImages();
+		loadLAttackImages();
+		loadHitImages();
 	}
 	
+	private void loadHitImages(){
+		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
+		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
+		crouchImages[1] = playerImg.getSubimage(157,295,68,84);
+	}
+
 	private void loadIdleImages() {
 		idleImages[0] = playerImg.getSubimage(9,36,52,86);
 		idleImages[1] = playerImg.getSubimage(62,36,52,86);
@@ -48,8 +60,18 @@ public class Player extends CommonPlayer {
 		jumpImages[4] = playerImg.getSubimage(221,36,52,86);
 		jumpImages[5] = playerImg.getSubimage(276,36,52,86);
 	}
+
+	private void loadCrouchImages() {
+		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
+		crouchImages[1] = playerImg.getSubimage(157,295,68,84);
+	}
+	private void loadLAttackImages() {
+		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
+		crouchImages[1] = playerImg.getSubimage(157,295,68,84);
+	}
 	
 	public BufferedImage printIdle() {
+		isAttacking = false;
 		if(imageIndex >= 6) {
 			imageIndex = 0;
 		}
@@ -61,8 +83,10 @@ public class Player extends CommonPlayer {
 	public BufferedImage printWalk() {
 		if(imageIndex >= 6) {
 			imageIndex = 0;
-			currentMove = IDLE;
+			currentMove = WALK;
+			isAttacking=false;
 		}
+		isAttacking=true;
 		BufferedImage img = walkImages[imageIndex];
 		imageIndex++;
 		return img;
@@ -71,11 +95,42 @@ public class Player extends CommonPlayer {
 	public BufferedImage printJump() {
 		if(imageIndex >= 6) {
 			imageIndex = 0;
-			currentMove = IDLE;
+			currentMove = JUMP;
 		}
 		BufferedImage img = jumpImages[imageIndex];
 		imageIndex++;
 		return img;
 	}
+
+	public BufferedImage printCrouch() {
+		if(imageIndex >= 2) {
+			imageIndex = 0;
+			currentMove = CROUCH;
+		}
+		BufferedImage img = crouchImages[imageIndex];
+		imageIndex++;
+		return img;
+	}
+
+	public BufferedImage printLAttack() {
+		if(imageIndex >= 2) {
+			imageIndex = 0;
+			currentMove = CROUCH;
+		}
+		BufferedImage img = LAttackImages[imageIndex];
+		imageIndex++;
+		return img;
+	}
+
+	public BufferedImage printHit() {
+		if(imageIndex >= 2) {
+			imageIndex = 0;
+			currentMove = CROUCH;
+		}
+		BufferedImage img = hitImages[imageIndex];
+		imageIndex++;
+		return img;
+	}
+
 }
 	
