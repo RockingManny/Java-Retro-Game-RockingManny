@@ -10,6 +10,7 @@ public class Player extends CommonPlayer {
 	private BufferedImage jumpImages[] = new BufferedImage[6];
 	private BufferedImage crouchImages[] = new BufferedImage[2];
 	private BufferedImage LAttackImages[] = new BufferedImage[2];
+	private BufferedImage hitImages[] = new BufferedImage[2];
 	
 	public Player() throws Exception {
 		x = 150;
@@ -23,8 +24,16 @@ public class Player extends CommonPlayer {
 		loadWalkImages();
 		loadJumpImages();
 		loadCrouchImages();
+		loadLAttackImages();
+		loadHitImages();
 	}
 	
+	private void loadHitImages(){
+		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
+		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
+		crouchImages[1] = playerImg.getSubimage(157,295,68,84);
+	}
+
 	private void loadIdleImages() {
 		idleImages[0] = playerImg.getSubimage(9,36,52,86);
 		idleImages[1] = playerImg.getSubimage(62,36,52,86);
@@ -54,16 +63,15 @@ public class Player extends CommonPlayer {
 
 	private void loadCrouchImages() {
 		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
-		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
 		crouchImages[1] = playerImg.getSubimage(157,295,68,84);
 	}
 	private void loadLAttackImages() {
-		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
 		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
 		crouchImages[1] = playerImg.getSubimage(157,295,68,84);
 	}
 	
 	public BufferedImage printIdle() {
+		isAttacking = false;
 		if(imageIndex >= 6) {
 			imageIndex = 0;
 		}
@@ -76,7 +84,9 @@ public class Player extends CommonPlayer {
 		if(imageIndex >= 6) {
 			imageIndex = 0;
 			currentMove = WALK;
+			isAttacking=false;
 		}
+		isAttacking=true;
 		BufferedImage img = walkImages[imageIndex];
 		imageIndex++;
 		return img;
@@ -108,6 +118,16 @@ public class Player extends CommonPlayer {
 			currentMove = CROUCH;
 		}
 		BufferedImage img = LAttackImages[imageIndex];
+		imageIndex++;
+		return img;
+	}
+
+	public BufferedImage printHit() {
+		if(imageIndex >= 2) {
+			imageIndex = 0;
+			currentMove = CROUCH;
+		}
+		BufferedImage img = hitImages[imageIndex];
 		imageIndex++;
 		return img;
 	}

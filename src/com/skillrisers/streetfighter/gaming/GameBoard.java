@@ -63,6 +63,14 @@ public class GameBoard extends JPanel implements GameConstants {
 
 	private void collision(){
 		if(isCollide()){
+			if(player.isAttacking()&&oppPlayer.isAttacking()){
+				if(player.isAttacking()){
+
+				}
+				else if(oppPlayer.isAttacking()){
+
+				}
+			}
 			System.out.println("Collision!!");
 			player.setCollide(true);
 			player.setSpeed(0);
@@ -148,7 +156,7 @@ public class GameBoard extends JPanel implements GameConstants {
 				}
 
 				if(e.getKeyCode() == KeyEvent.VK_W) {
-					player.setCurrentMove(CROUCH);
+					player.setCurrentMove(JUMP);
 					oppPlayer.jump();
 					// repaint();
 				}
