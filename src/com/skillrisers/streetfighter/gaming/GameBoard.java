@@ -13,8 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import com.skillrisers.streetfighter.sprites.Health;
-// import com.skillrisers.streetfighter.sprites.Health;
+import com.skillrisers.streetfighter.sprites.CommonPlayer.Health;
 import com.skillrisers.streetfighter.sprites.OpponentPlayer;
 import com.skillrisers.streetfighter.sprites.Player;
 import com.skillrisers.streetfighter.utils.GameConstants;
@@ -54,14 +53,13 @@ public class GameBoard extends JPanel implements GameConstants {
 	}
 
 	public void loadHealth(){
-		oppPlayerHealth = new Health(30,Color.GREEN);
-		playerHealth = new Health(SCREENWIDTH-600, Color.GREEN);
+		playerHealth = player.new Health(30,Color.GREEN);
+		oppPlayerHealth = oppPlayer.new Health(SCREENWIDTH-550, Color.GREEN);
 	}
 
 	public void printHealth(Graphics pen){
 		oppPlayerHealth.printHealth(pen);
 		playerHealth.printHealth(pen);
-
 	}
 
 	public void flipAll(boolean flip){
@@ -112,7 +110,6 @@ public class GameBoard extends JPanel implements GameConstants {
 		//System.out.println("Paint Component...");
 		paintBackground(pen);
 		player.paintPlayer(pen);
-		// oppPlayer.flipPlayer();
 		oppPlayer.paintPlayer(pen);
 		printHealth(pen);
 		if(player.getX()>oppPlayer.getX())
@@ -124,7 +121,7 @@ public class GameBoard extends JPanel implements GameConstants {
 	private void paintBackground(Graphics pen) {
 		
 		pen.drawImage(bgImage, 0,0,SCREENWIDTH, SCREENHEIGHT, null);
-		pen.drawImage(fgImage, -200,GROUND+50,SCREENWIDTH+400, 300, null);
+		pen.drawImage(fgImage, -200,GROUND+200,SCREENWIDTH+400, 250, null);
 	}
 	
 	void bindEvents() {
@@ -139,6 +136,9 @@ public class GameBoard extends JPanel implements GameConstants {
 			public void keyReleased(KeyEvent e) {
 				System.out.println("Key Released : " + e.getKeyCode());
 				player.setSpeed(0);
+				oppPlayer.setSpeed(0);
+				player.setCurrentMove(IDLE);
+				oppPlayer.setCurrentMove(IDLE);
 			}
 			
 			@Override

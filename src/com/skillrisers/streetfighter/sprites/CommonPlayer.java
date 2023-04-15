@@ -1,19 +1,52 @@
 package com.skillrisers.streetfighter.sprites;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import com.skillrisers.streetfighter.utils.GameConstants;
 
 public abstract class CommonPlayer implements GameConstants {
+
+	public class Health {
+		protected int x_hb;
+		protected int y_hb;
+		protected int w_hb;
+		protected int h_hb;
+		public int getX_hb() {return x_hb;}
+		public int getY_hb() {return y_hb;}
+		public int getW_hb() {return w_hb;}
+		public int getH_hb() {return h_hb;}
+		public Color getColor() {return color;}
+		public void setX_hb(int x_hb) {this.x_hb = x_hb;}
+		public void setY_hb(int y_hb) {this.y_hb = y_hb;}
+		public void setW_hb(int w_hb) {this.w_hb = w_hb;}
+		public void setH_hb(int h_hb) {this.h_hb = h_hb;}
+		public void setColor(Color color) {this.color = color;}
+		
+		Color color;
+		public Health(int x, Color color) {
+			x_hb = x;
+			y_hb = 20;
+			w_hb = 500;
+			h_hb = 50;
+			this.color = color;
+		}
+		
+		public void printHealth(Graphics pen) {
+			pen.setColor(getColor());
+			pen.fillRect(getX_hb(), getY_hb(), getW_hb(), getH_hb());
+		}
+	}
+
 	protected int x;
 	protected int y;
 	protected int w;
 	protected int h;
 	protected int speed;
-	protected BufferedImage playerImg;
 	protected int imageIndex;
 	protected int currentMove;
 	protected int force;
+	protected BufferedImage playerImg;
 	public abstract BufferedImage printIdle();
 	public abstract BufferedImage printWalk();
 	public abstract BufferedImage printJump();

@@ -13,10 +13,10 @@ public class Player extends CommonPlayer {
 	private BufferedImage hitImages[] = new BufferedImage[2];
 	
 	public Player() throws Exception {
-		x = 150;
+		x = 200;
 		y = GROUND;
-		w = 200;
-		h = 300;
+		w = 300;
+		h = 400;
 		force=0;
 		speed = 0;
 		flip=false;

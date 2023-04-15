@@ -13,8 +13,8 @@ public class OpponentPlayer extends CommonPlayer {
 	public OpponentPlayer() throws Exception {
 		x = SCREENWIDTH - 500;
 		y = GROUND;
-		w = 200;
-		h = 300;
+		w = 300;
+		h = 400;
 		force=0;
 		speed = 0;
 		flip=true;
