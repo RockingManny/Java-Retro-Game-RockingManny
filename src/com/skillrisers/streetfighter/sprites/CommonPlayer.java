@@ -93,8 +93,7 @@ public abstract class CommonPlayer implements GameConstants {
 	public void flipPlayerImg() {this.playerImg = flip(defaultImage());}
 	
 	public void move() {if(!isCollide){x = x + speed;}}
-	public void crouch() {}
-	public void jump() {force = -10; y = y + force;}
+	public void jump() {force = -40; y = y + force;}
 	public void fall() {
 		if(y + force > GROUND) {
 			y = GROUND;

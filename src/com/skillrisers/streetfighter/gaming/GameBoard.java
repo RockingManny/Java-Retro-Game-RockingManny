@@ -171,14 +171,13 @@ public class GameBoard extends JPanel implements GameConstants {
 					// repaint();
 				}
 				
-				if(e.getKeyCode() == KeyEvent.VK_UP) {
-					player.setCurrentMove(JUMP);
+				if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+					// player.setCurrentMove(JUMP);
 					player.jump();
 					// repaint();
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 					player.setCurrentMove(CROUCH);
-					player.crouch();
 					// repaint();
 				}
 
@@ -189,7 +188,6 @@ public class GameBoard extends JPanel implements GameConstants {
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_S) {
 					oppPlayer.setCurrentMove(CROUCH);
-					oppPlayer.crouch();
 					// repaint();
 				}
 			}
