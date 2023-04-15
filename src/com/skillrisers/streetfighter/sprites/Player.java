@@ -19,6 +19,7 @@ public class Player extends CommonPlayer {
 		loadCrouchImages();
 		loadLAttackImages();
 		loadHitImages();
+		loadPowerImages();
 	}
 	
 	private void loadHitImages(){
@@ -62,6 +63,17 @@ public class Player extends CommonPlayer {
 		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(92,1707,87,92)));
 		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(187,1707,87,92)));
 	}
-
+	private void loadPowerImages() {
+		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(17,3445,87,101)));
+		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(106,3445,87,101)));
+		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(199,3445,87,101)));
+		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(199,3445,87,101)));
+		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(199,3445,87,101)));
+		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(290,3445,87,101)));
+		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(384,3445,87,101)));
+		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(384,3445,87,101)));
+		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(384,3445,87,101)));
+		// powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(467,3400,87,146)));
+	}
 }
 	

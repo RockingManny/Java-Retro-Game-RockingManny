@@ -19,6 +19,7 @@ public class OpponentPlayer extends CommonPlayer {
 		loadCrouchImages();
 		loadLAttackImages();
 		loadHitImages();
+		loadPowerImages();
 	}
 
 	private void loadHitImages(){
@@ -57,6 +58,12 @@ public class OpponentPlayer extends CommonPlayer {
 		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(122,53,92,96)));
 		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(225,53,91,96)));
 		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(328,53,92,96)));
+	}
+	private void loadPowerImages() {
+		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(18,53,93,96)));
+		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(122,53,92,96)));
+		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(225,53,91,96)));
+		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(328,53,92,96)));
 	}
 }
 	

@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import com.skillrisers.streetfighter.sprites.CommonPlayer.Health;
+import com.skillrisers.streetfighter.sprites.CommonPlayer.PowerEffect;
 import com.skillrisers.streetfighter.sprites.OpponentPlayer;
 import com.skillrisers.streetfighter.sprites.Player;
 import com.skillrisers.streetfighter.utils.GameConstants;
@@ -50,6 +51,13 @@ public class GameBoard extends JPanel implements GameConstants {
 
 		});
 		timer.start();
+	}
+
+	private void printPower(Graphics pen) {
+		for(PowerEffect power : player.getPowers()) {
+			power.printPower(pen);
+		}
+		System.out.println("Power");
 	}
 
 	public void loadHealth(){
@@ -93,10 +101,18 @@ public class GameBoard extends JPanel implements GameConstants {
 			if(player.isAttacking()){
 				oppPlayer.setAttacking(false);
 				oppPlayer.setCurrentMove(HIT);
+				oppPlayerHealth.setHealth();
 			}
 			else if(oppPlayer.isAttacking()){
 				player.setAttacking(false);
 				player.setCurrentMove(HIT);
+				playerHealth.setHealth();
+			}
+			else if(!player.isAttacking()){
+				oppPlayer.setCurrentMove(IDLE);
+			}
+			else if(!oppPlayer.isAttacking()){
+				player.setCurrentMove(IDLE);
 			}
 			System.out.println("Collision!!");
 			player.setCollide(true);
@@ -115,6 +131,7 @@ public class GameBoard extends JPanel implements GameConstants {
 		oppPlayer.paintPlayer(pen);
 		player.paintPlayer(pen);
 		printHealth(pen);
+		printPower(pen);
 		if(player.getX()>oppPlayer.getX())
 			flipAll(true);
 		else
@@ -226,6 +243,17 @@ public class GameBoard extends JPanel implements GameConstants {
 				if(e.getKeyCode() == KeyEvent.VK_P) {
 					player.setCurrentMove(LATTACK);
 					player.setAttacking(true);
+				}
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					player.setCurrentMove(POWER);
+					// player.setAttacking(true);
+					player.power();
+				}
+				
+				if(e.getKeyCode() == KeyEvent.VK_Q) {
+					oppPlayer.setCurrentMove(LATTACK);
+					oppPlayer.setAttacking(true);
 				}
 			}
 		});

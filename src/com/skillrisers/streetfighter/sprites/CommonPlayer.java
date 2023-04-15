@@ -6,10 +6,15 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import com.skillrisers.streetfighter.utils.GameConstants;
+import com.skillrisers.streetfighter.utils.SpriteImageUtils;
 
 public abstract class CommonPlayer implements GameConstants {
 
 	public class Health {
+		protected int x_hb_bg;
+		protected int y_hb_bg = 20;
+		protected int w_hb_bg;
+		protected int h_hb_bg = 50;
 		protected int x_hb;
 		protected int y_hb;
 		protected int w_hb;
@@ -18,34 +23,87 @@ public abstract class CommonPlayer implements GameConstants {
 		public int getY_hb() {return y_hb;}
 		public int getW_hb() {return w_hb;}
 		public int getH_hb() {return h_hb;}
-		public Color getColor() {return color;}
 		public void setX_hb(int x_hb) {this.x_hb = x_hb;}
 		public void setY_hb(int y_hb) {this.y_hb = y_hb;}
 		public void setW_hb(int w_hb) {this.w_hb = w_hb;}
 		public void setH_hb(int h_hb) {this.h_hb = h_hb;}
-		public void setColor(Color color) {this.color = color;}
 		
-		Color color;
+		Color h_bg_color = Color.RED;
+		Color h_color = Color.RED;
 		public Health(int x, Color color) {
-			x_hb = x;
-			y_hb = 20;
-			w_hb = 500;
-			h_hb = 50;
-			this.color = color;
+			x_hb_bg = x;
+			w_hb_bg = MAX_HEALTH;
+			x_hb = x_hb_bg;
+			y_hb = y_hb_bg;
+			w_hb = w_hb_bg;
+			h_hb = h_hb_bg;
+			this.h_color = color;
+		}
+
+		public void setHealth() {
+			if(health>0)
+			{
+				health = health - (int)(MAX_HEALTH * 0.01);
+			}
+			w_hb = health;
 		}
 		
 		public void printHealth(Graphics pen) {
-			pen.setColor(getColor());
-			pen.fillRect(getX_hb(), getY_hb(), getW_hb(), getH_hb());
+			pen.setColor(h_bg_color);
+			pen.fillRect(x_hb_bg, y_hb_bg, w_hb_bg, h_hb_bg);
+			pen.setColor(h_color);
+			pen.fillRect(x_hb, y_hb, w_hb, h_hb);
 		}
 	}
 
+	public class PowerEffect {
+		protected int x_pw;
+		protected int y_pw;
+		protected int w_pw;
+		protected int h_pw;
+
+		protected ArrayList<BufferedImage> powerImg = new ArrayList<BufferedImage>();
+
+		public PowerEffect()
+		{
+			x_pw = getSpan()-30;
+			y_pw = (y+(getBase()-y)/2)-95;
+			w_pw = 39;
+			h_pw = 97;
+			loadPowerImg();
+		}
+
+		private void loadPowerImg() {
+			powerImg.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(1027,3433,39,97)));
+		}
+
+		public BufferedImage printPower() {
+			isAttacking = false;
+			if(imageIndex >= powerImg.size()) {
+				imageIndex = 0;
+			}
+			BufferedImage img = powerImg.get(imageIndex);
+			imageIndex++;
+			return img;
+		}
+
+		public void printPower(Graphics pen) {
+			pen.drawImage(printPower(), x_pw, y_pw, w_pw, h_pw, null);
+			move();
+		}
+
+		private void move() {x_pw = x_pw + (SPEED+100);}
+
+	}
 	protected ArrayList<BufferedImage> idleImages = new ArrayList<BufferedImage>();
 	protected ArrayList<BufferedImage> walkImages = new ArrayList<BufferedImage>();
 	protected ArrayList<BufferedImage> jumpImages = new ArrayList<BufferedImage>();
 	protected ArrayList<BufferedImage> crouchImages = new ArrayList<BufferedImage>();
 	protected ArrayList<BufferedImage> LAttackImages = new ArrayList<BufferedImage>();
 	protected ArrayList<BufferedImage> hitImages = new ArrayList<BufferedImage>();
+	protected ArrayList<BufferedImage> powerImages = new ArrayList<BufferedImage>();
+
+	protected int health = MAX_HEALTH;
 
 	protected int x;
 	protected int y;
@@ -64,6 +122,8 @@ public abstract class CommonPlayer implements GameConstants {
 	protected boolean isFlyingNearGround;
 	
 	
+	public int getHealth() {return health;}
+	public void setHealth(int health) {this.health = health;}
 	public boolean isFlyingNearGround() {return isFlyingNearGround;}
 	public void setFlyingNearGround(boolean isFlyingNearGround) {this.isFlyingNearGround = isFlyingNearGround;}
 	public boolean isFlying() {return isFlying;}
@@ -103,6 +163,15 @@ public abstract class CommonPlayer implements GameConstants {
 	public void setPlayerImg(BufferedImage playerImg) {this.playerImg = playerImg;}
 	public void flipPlayerImg() {this.playerImg = flip(defaultImage());}
 	
+	private ArrayList<PowerEffect> powers= new ArrayList<PowerEffect>();
+
+	public ArrayList<PowerEffect> getPowers() {
+		return powers;
+	}
+
+	public void power() {
+		powers.add(new PowerEffect());
+	}
 	public void move() {if(!isCollide){x = x + speed;}}
 	public void jump() {
 		force = -40; 
@@ -158,6 +227,10 @@ public abstract class CommonPlayer implements GameConstants {
 		else if(currentMove == HIT)
 		{
 			return printHit();
+		}
+		else if(currentMove == POWER)
+		{
+			return printPower();
 		}
 		else {
 			return printIdle();
@@ -225,7 +298,17 @@ public abstract class CommonPlayer implements GameConstants {
 		}
 		BufferedImage img = hitImages.get(imageIndex);
 		imageIndex++;
-		System.out.println("Opponent got Hit");
+		return img;
+	}
+
+	public BufferedImage printPower() {
+
+		if(imageIndex >= powerImages.size()) {
+			imageIndex = 0;
+			currentMove = HIT;
+		}
+		BufferedImage img = powerImages.get(imageIndex);
+		imageIndex++;
 		return img;
 	}
 

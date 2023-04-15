@@ -9,6 +9,7 @@ public interface GameConstants {
 	int SCREENWIDTH = graphicsDevice.getDisplayMode().getWidth();
 	int SCREENHEIGHT = graphicsDevice.getDisplayMode().getHeight();
 	int GROUND = SCREENHEIGHT - 130;
+	int MAX_HEALTH=500;
 	String BACKGROUND = ConfigReader.getValue("game.background.img");
 	String OPPONENT_IMAGE = ConfigReader.getValue("oppPlayer.img");
 	String PLAYER_IMAGE = ConfigReader.getValue("player.img");
@@ -20,5 +21,6 @@ public interface GameConstants {
 	int JUMP = 5;
 	int HIT = 6;
 	int LATTACK = 7;
+	int POWER = 10;
 	int GRAVITY = 50;
 }
