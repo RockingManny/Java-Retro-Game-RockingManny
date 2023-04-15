@@ -57,7 +57,6 @@ public class GameBoard extends JPanel implements GameConstants {
 		for(PowerEffect power : player.getPowers()) {
 			power.printPower(pen);
 		}
-		System.out.println("Power");
 	}
 
 	public void loadHealth(){
@@ -94,10 +93,8 @@ public class GameBoard extends JPanel implements GameConstants {
 	}
 
 	private void collision(){
-		if(isCollide()){
-			if(player.isAttacking()&&oppPlayer.isAttacking()){
-			
-			}
+		System.out.println(player.getPowers().size());
+		if(isCollide()||player.isPowerSuccess()||oppPlayer.isPowerSuccess()){
 			if(player.isAttacking()){
 				oppPlayer.setAttacking(false);
 				oppPlayer.setCurrentMove(HIT);
@@ -122,7 +119,6 @@ public class GameBoard extends JPanel implements GameConstants {
 			player.setCollide(false);
 		}
 	}
-
 
 	@Override
 	public void paintComponent(Graphics pen) {
@@ -159,6 +155,7 @@ public class GameBoard extends JPanel implements GameConstants {
 				oppPlayer.setSpeed(0);
 				player.setCurrentMove(IDLE);
 				oppPlayer.setCurrentMove(IDLE);
+				player.dispose_power();
 			}
 			
 			@Override
@@ -249,6 +246,7 @@ public class GameBoard extends JPanel implements GameConstants {
 					player.setCurrentMove(POWER);
 					// player.setAttacking(true);
 					player.power();
+					player.dispose_power();
 				}
 				
 				if(e.getKeyCode() == KeyEvent.VK_Q) {

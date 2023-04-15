@@ -70,9 +70,13 @@ public abstract class CommonPlayer implements GameConstants {
 			y_pw = (y+(getBase()-y)/2)-95;
 			w_pw = 39;
 			h_pw = 97;
+			speed=SPEED;
 			loadPowerImg();
 		}
 
+		public int getPos() {
+			return (x_pw+w_pw);
+		}
 		private void loadPowerImg() {
 			powerImg.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(1027,3433,39,97)));
 		}
@@ -88,12 +92,11 @@ public abstract class CommonPlayer implements GameConstants {
 		}
 
 		public void printPower(Graphics pen) {
+			dispose_power();
 			pen.drawImage(printPower(), x_pw, y_pw, w_pw, h_pw, null);
-			move();
+			move_pw();
 		}
-
-		private void move() {x_pw = x_pw + (SPEED+100);}
-
+		private void move_pw() {x_pw = x_pw + (speed);}
 	}
 	protected ArrayList<BufferedImage> idleImages = new ArrayList<BufferedImage>();
 	protected ArrayList<BufferedImage> walkImages = new ArrayList<BufferedImage>();
@@ -121,7 +124,11 @@ public abstract class CommonPlayer implements GameConstants {
 	protected boolean isFlying;
 	protected boolean isFlyingNearGround;
 	
-	
+	protected boolean isPowerSuccess;
+
+
+	public boolean isPowerSuccess() {return isPowerSuccess;}
+	public void setPowerSuccess(boolean isPowerSuccess) {this.isPowerSuccess = isPowerSuccess;}
 	public int getHealth() {return health;}
 	public void setHealth(int health) {this.health = health;}
 	public boolean isFlyingNearGround() {return isFlyingNearGround;}
@@ -163,12 +170,15 @@ public abstract class CommonPlayer implements GameConstants {
 	public void setPlayerImg(BufferedImage playerImg) {this.playerImg = playerImg;}
 	public void flipPlayerImg() {this.playerImg = flip(defaultImage());}
 	
-	private ArrayList<PowerEffect> powers= new ArrayList<PowerEffect>();
+	protected ArrayList<PowerEffect> powers= new ArrayList<PowerEffect>();
 
 	public ArrayList<PowerEffect> getPowers() {
 		return powers;
 	}
-
+	public void dispose_power() {
+		if(isPowerSuccess()||(powers.get(0).getPos())>=SCREENWIDTH)
+			powers.remove(0);
+	}
 	public void power() {
 		powers.add(new PowerEffect());
 	}
