@@ -59,8 +59,17 @@ public abstract class CommonPlayer implements GameConstants {
 	protected boolean flip;
 	protected boolean isCollide;
 	protected boolean isAttacking;
+	protected boolean isCrouching;
+	protected boolean isFlying;
+	protected boolean isFlyingNearGround;
 	
 	
+	public boolean isFlyingNearGround() {return isFlyingNearGround;}
+	public void setFlyingNearGround(boolean isFlyingNearGround) {this.isFlyingNearGround = isFlyingNearGround;}
+	public boolean isFlying() {return isFlying;}
+	public void setFlying(boolean isFlying) {this.isFlying = isFlying;}
+	public boolean isCrouching() {return isCrouching;}
+	public void setCrouching(boolean isCrouching) {this.isCrouching = isCrouching;}
 	public boolean isFlip() {return flip;}
 	public void setFlip(boolean flip) {this.flip = flip;}
 	public boolean isAttacking() {return isAttacking;}
@@ -70,6 +79,8 @@ public abstract class CommonPlayer implements GameConstants {
 	public int getCurrentMove() {return currentMove;}
 	public void setCurrentMove(int currentMove) {this.currentMove = currentMove;}
 	
+	public int getBase() {return (y+w);}
+	public int getSpan() {return (x+w);}
 	public int getX() {return x;}
 	public void setX(int x) {this.x = x;}
 	
@@ -93,13 +104,33 @@ public abstract class CommonPlayer implements GameConstants {
 	public void flipPlayerImg() {this.playerImg = flip(defaultImage());}
 	
 	public void move() {if(!isCollide){x = x + speed;}}
-	public void jump() {force = -40; y = y + force;}
-	public void fall() {
-		if(y + force > GROUND) {
-			y = GROUND;
+	public void jump() {
+		force = -40; 
+		if(y + force < 0)
+		{
+			y = 0;
 			return;
 		}
+		y = y + force;
+	}
+	public void fall() {
+		if(getBase()<(GROUND-50)) {
+			setFlying(true);
+			setFlyingNearGround(false);
+		}
+		else if(getBase()>=(GROUND-50)&&getBase()<GROUND) {
+			setFlying(false);
+			setFlyingNearGround(true);
+		}
+		else {
+			setFlying(false);
+			setFlyingNearGround(false);
+		}
 		force = force + GRAVITY;
+		if(getBase() + force > GROUND) {
+			y = GROUND - w;
+			return;
+		}
 		y = y + force;
 	}
 	
@@ -119,6 +150,14 @@ public abstract class CommonPlayer implements GameConstants {
 		}
 		else if(currentMove == CROUCH) {
 			return printCrouch();
+		}
+		else if(currentMove == LATTACK)
+		{
+			return printLAttack();
+		}
+		else if(currentMove == HIT)
+		{
+			return printHit();
 		}
 		else {
 			return printIdle();
@@ -143,7 +182,7 @@ public abstract class CommonPlayer implements GameConstants {
 			currentMove = WALK;
 			isAttacking=false;
 		}
-		isAttacking=true;
+		isAttacking=false;
 		BufferedImage img = walkImages.get(imageIndex);
 		imageIndex++;
 		return img;
@@ -172,8 +211,8 @@ public abstract class CommonPlayer implements GameConstants {
 	public BufferedImage printLAttack() {
 		if(imageIndex >= LAttackImages.size()) {
 			imageIndex = 0;
-			currentMove = ATTACK;
 		}
+		isAttacking=true;
 		BufferedImage img = LAttackImages.get(imageIndex);
 		imageIndex++;
 		return img;
@@ -186,6 +225,7 @@ public abstract class CommonPlayer implements GameConstants {
 		}
 		BufferedImage img = hitImages.get(imageIndex);
 		imageIndex++;
+		System.out.println("Opponent got Hit");
 		return img;
 	}
 

@@ -5,10 +5,10 @@ import com.skillrisers.streetfighter.utils.SpriteImageUtils;
 public class Player extends CommonPlayer {
 	
 	public Player() throws Exception {
-		x = 200;
-		y = GROUND;
 		w = 320;
 		h = 400;
+		x = 200;
+		y = GROUND - h;
 		force=0;
 		speed = 0;
 		flip=false;
@@ -58,10 +58,9 @@ public class Player extends CommonPlayer {
 		crouchImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(328,53,92,96)));
 	}
 	private void loadLAttackImages() {
-		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(18,53,93,96)));
-		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(122,53,92,96)));
-		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(225,53,91,96)));
-		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(328,53,92,96)));
+		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(6,1707,87,92)));
+		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(92,1707,87,92)));
+		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(187,1707,87,92)));
 	}
 
 }

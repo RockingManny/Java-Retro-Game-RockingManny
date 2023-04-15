@@ -77,26 +77,29 @@ public class GameBoard extends JPanel implements GameConstants {
 
 
 	private boolean isCollide(){
-		int xDistance = Math.abs(player.getX()-oppPlayer.getX());
-		int yDistance = Math.abs(player.getY()-oppPlayer.getY());
-		int maxH= Math.max(player.getH(), oppPlayer.getH());
-		int maxW= Math.max(player.getW(), oppPlayer.getW());
+		int xDistance = Math.abs(player.getX() - oppPlayer.getX());
+		int yDistance = Math.abs(player.getY() - oppPlayer.getY());
+		int maxH = Math.max(player.getH(), oppPlayer.getH());
+		int maxW = Math.max(player.getW(), oppPlayer.getW());
 		return xDistance <= maxW && yDistance <= maxH;
+
 	}
 
 	private void collision(){
 		if(isCollide()){
 			if(player.isAttacking()&&oppPlayer.isAttacking()){
-				if(player.isAttacking()){
-
-				}
-				else if(oppPlayer.isAttacking()){
-
-				}
+			
+			}
+			if(player.isAttacking()){
+				oppPlayer.setAttacking(false);
+				oppPlayer.setCurrentMove(HIT);
+			}
+			else if(oppPlayer.isAttacking()){
+				player.setAttacking(false);
+				player.setCurrentMove(HIT);
 			}
 			System.out.println("Collision!!");
 			player.setCollide(true);
-			player.setSpeed(0);
 		}
 		else{
 			player.setSpeed(SPEED);
@@ -109,8 +112,8 @@ public class GameBoard extends JPanel implements GameConstants {
 	public void paintComponent(Graphics pen) {
 		//System.out.println("Paint Component...");
 		paintBackground(pen);
-		player.paintPlayer(pen);
 		oppPlayer.paintPlayer(pen);
+		player.paintPlayer(pen);
 		printHealth(pen);
 		if(player.getX()>oppPlayer.getX())
 			flipAll(true);
@@ -121,7 +124,7 @@ public class GameBoard extends JPanel implements GameConstants {
 	private void paintBackground(Graphics pen) {
 		
 		pen.drawImage(bgImage, 0,0,SCREENWIDTH, SCREENHEIGHT, null);
-		pen.drawImage(fgImage, -200,GROUND+200,SCREENWIDTH+400, 250, null);
+		pen.drawImage(fgImage, -300,GROUND-170,SCREENWIDTH+600, 300, null);
 	}
 	
 	void bindEvents() {
@@ -146,13 +149,26 @@ public class GameBoard extends JPanel implements GameConstants {
 				System.out.println("Key Pressed : " + e.getKeyCode());
 				if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 					player.setCurrentMove(WALK);
-					player.setSpeed(-SPEED);
+					if((oppPlayer.getSpan() == player.getX()+200)&&!(oppPlayer.isFlying())&&!(player.isFlying()))
+					{
+						player.setCollide(true);
+						player.setSpeed(0);
+						return;
+					}
 					player.setCollide(false);
+					player.setSpeed(-SPEED);
 					player.move();
 					// repaint();
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					player.setCurrentMove(WALK);
+					if((player.getSpan() == oppPlayer.getX()+200)&&!(oppPlayer.isFlying())&&!(player.isFlying()))
+					{
+						player.setCollide(true);
+						player.setSpeed(0);
+						return;
+					}
+					player.setCollide(false);
 					player.setSpeed(SPEED);
 					player.move();
 					// repaint();
@@ -160,19 +176,34 @@ public class GameBoard extends JPanel implements GameConstants {
 				
 				if(e.getKeyCode() == KeyEvent.VK_A) {
 					oppPlayer.setCurrentMove(WALK);
+					if((player.getSpan() == oppPlayer.getX()+200)&&!(oppPlayer.isFlying())&&!(player.isFlying()))
+					{
+						oppPlayer.setCollide(true);
+						oppPlayer.setSpeed(0);
+						return;
+					}
+					oppPlayer.setCollide(false);
 					oppPlayer.setSpeed(-SPEED);
 					oppPlayer.move();
 					// repaint();
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_D) {
 					oppPlayer.setCurrentMove(WALK);
+					if((oppPlayer.getSpan() == player.getX()+200)&&!(oppPlayer.isFlying())&&!(player.isFlying()))
+					{
+						oppPlayer.setCollide(true);
+						oppPlayer.setSpeed(0);
+						return;
+					}
+					oppPlayer.setCollide(false);
 					oppPlayer.setSpeed(SPEED);
 					oppPlayer.move();
 					// repaint();
 				}
 				
-				if(e.getKeyCode() == KeyEvent.VK_SPACE) {
-					// player.setCurrentMove(JUMP);
+				if(e.getKeyCode() == KeyEvent.VK_UP) {
+					player.setCurrentMove(JUMP);
+					player.setFlying(true);
 					player.jump();
 					// repaint();
 				}
@@ -182,13 +213,19 @@ public class GameBoard extends JPanel implements GameConstants {
 				}
 
 				if(e.getKeyCode() == KeyEvent.VK_W) {
-					player.setCurrentMove(JUMP);
+					oppPlayer.setCurrentMove(JUMP);
+					oppPlayer.setFlying(true);
 					oppPlayer.jump();
 					// repaint();
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_S) {
 					oppPlayer.setCurrentMove(CROUCH);
 					// repaint();
+				}
+
+				if(e.getKeyCode() == KeyEvent.VK_P) {
+					player.setCurrentMove(LATTACK);
+					player.setAttacking(true);
 				}
 			}
 		});
