@@ -12,7 +12,7 @@ public interface GameConstants {
 	String BACKGROUND = ConfigReader.getValue("game.background.img");
 	String OPPONENT_IMAGE = ConfigReader.getValue("oppPlayer.img");
 	String PLAYER_IMAGE = ConfigReader.getValue("player.img");
-	int SPEED = 10;
+	int SPEED = 20;
 	int IDLE = 1;
 	int WALK = 2;
 	int KICK = 3;
@@ -20,5 +20,5 @@ public interface GameConstants {
 	int JUMP = 5;
 	int HIT = 6;
 	int ATTACK = 7;
-	int GRAVITY = 9;
+	int GRAVITY = 98;
 }
