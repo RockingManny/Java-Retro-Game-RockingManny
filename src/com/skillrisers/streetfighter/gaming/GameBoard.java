@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import com.skillrisers.streetfighter.sprites.Health;
 // import com.skillrisers.streetfighter.sprites.Health;
 import com.skillrisers.streetfighter.sprites.OpponentPlayer;
 import com.skillrisers.streetfighter.sprites.Player;
@@ -20,57 +21,60 @@ import com.skillrisers.streetfighter.utils.GameConstants;
 
 public class GameBoard extends JPanel implements GameConstants {
 	BufferedImage bgImage;
+	BufferedImage fgImage;
 	private Player player;
 	private OpponentPlayer oppPlayer;
 	private Timer timer;
-	// private Health playerHealth;
-	// private Health oppPlayerHealth;
+	private Health playerHealth;
+	private Health oppPlayerHealth;
 	public GameBoard() throws Exception {
 		player = new Player();
 		oppPlayer = new OpponentPlayer();
 		setFocusable(true);
 		loadBackground();
 		bindEvents();
+		loadHealth();
 		gameLoop();
 	}
 
 	private void gameLoop(){
 		timer = new Timer(100, new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				repaint();
-				if(player.getX()>oppPlayer.getX())
-				{
-					
-					// player.flipPlayer();
-					// oppPlayer.flipPlayer();
-					// repaint();
-				}
 				player.fall();
 				oppPlayer.fall();
 				collision();
 			}
 
-		} );
+		});
 		timer.start();
 	}
 
-	// public void loadHealth(){
-	// 	oppPlayerHealth = new Health(30,Color.GREEN);
-	// 	playerHealth = new Health(SCREENWIDTH-600, Color.GREEN);
-	// }
+	public void loadHealth(){
+		oppPlayerHealth = new Health(30,Color.GREEN);
+		playerHealth = new Health(SCREENWIDTH-600, Color.GREEN);
+	}
 
-	// public void printHealth(Graphics pen){
-	// 	oppPlayerHealth.printHealth(pen);
-	// 	playerHealth.printHealth(pen);
+	public void printHealth(Graphics pen){
+		oppPlayerHealth.printHealth(pen);
+		playerHealth.printHealth(pen);
 
-	// }
+	}
 
-	public void flipAll(Graphics pen){
-		player.paintFlipPlayer(pen);
-		oppPlayer.paintFlipPlayer(pen);
-		repaint();
+	public void flipAll(boolean flip){
+		if(flip==true)
+		{
+			player.setFlip(true);
+			oppPlayer.setFlip(false);
+		}
+		else
+		{
+			player.setFlip(false);
+			oppPlayer.setFlip(true);
+		}
 	}
 
 
@@ -109,21 +113,18 @@ public class GameBoard extends JPanel implements GameConstants {
 		paintBackground(pen);
 		player.paintPlayer(pen);
 		// oppPlayer.flipPlayer();
-		oppPlayer.paintFlipPlayer(pen);
+		oppPlayer.paintPlayer(pen);
+		printHealth(pen);
 		if(player.getX()>oppPlayer.getX())
-		{
-			flipAll(pen);
-		}
+			flipAll(true);
+		else
+			flipAll(false);
 
 	}
 	private void paintBackground(Graphics pen) {
 		
 		pen.drawImage(bgImage, 0,0,SCREENWIDTH, SCREENHEIGHT, null);
-		
-		pen.setColor(Color.GREEN);
-		pen.fillRect(100, 10, 600,50);
-		pen.setColor(Color.GREEN);
-		pen.fillRect(900, 10, 600,50);
+		pen.drawImage(fgImage, -200,GROUND+50,SCREENWIDTH+400, 300, null);
 	}
 	
 	void bindEvents() {
@@ -197,7 +198,8 @@ public class GameBoard extends JPanel implements GameConstants {
 	
 	private void loadBackground() {
 		try {
-			bgImage = ImageIO.read(GameBoard.class.getResource(BACKGROUND));
+			bgImage = ImageIO.read(GameBoard.class.getResource(BACKGROUND)).getSubimage(42, 9, 416, 200);
+			fgImage = ImageIO.read(GameBoard.class.getResource(BACKGROUND)).getSubimage(0, 203, 512, 60);
 		}
 		catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Something went wrong...");

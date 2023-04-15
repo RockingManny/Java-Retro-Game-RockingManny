@@ -19,6 +19,7 @@ public class Player extends CommonPlayer {
 		h = 300;
 		force=0;
 		speed = 0;
+		flip=false;
 		playerImg = ImageIO.read(Player.class.getResource(PLAYER_IMAGE));
 		loadIdleImages();
 		loadWalkImages();

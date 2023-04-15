@@ -20,10 +20,13 @@ public abstract class CommonPlayer implements GameConstants {
 	public abstract BufferedImage printCrouch();
 	public abstract BufferedImage printLAttack();
 	public abstract BufferedImage printHit();
+	protected boolean flip;
 	protected boolean isCollide;
 	protected boolean isAttacking;
 	
 	
+	public boolean isFlip() {return flip;}
+	public void setFlip(boolean flip) {this.flip = flip;}
 	public boolean isAttacking() {return isAttacking;}
 	public void setAttacking(boolean isAttacking) {this.isAttacking = isAttacking;}
 	public boolean isCollide() {return isCollide;}
@@ -66,10 +69,10 @@ public abstract class CommonPlayer implements GameConstants {
 	}
 	
 	public void paintPlayer(Graphics pen) {
-		pen.drawImage(defaultImage(), x, y, w, h, null);
-	}
-	public void paintFlipPlayer(Graphics pen) {
-		pen.drawImage(flip(defaultImage()), x, y, w, h, null);
+		if(flip==false)
+			pen.drawImage(defaultImage(), x, y, w, h, null);
+		else
+			pen.drawImage(flip(defaultImage()), x, y, w, h, null);
 	}
 
 	public BufferedImage defaultImage() {
