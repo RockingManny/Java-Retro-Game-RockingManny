@@ -1,24 +1,17 @@
 package com.skillrisers.streetfighter.sprites;
 
-import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-
+import com.skillrisers.streetfighter.utils.SpriteImageUtils;
 public class Player extends CommonPlayer {
 	
-	private BufferedImage idleImages[] = new BufferedImage[6];
-	private BufferedImage walkImages[] = new BufferedImage[6];
-	private BufferedImage jumpImages[] = new BufferedImage[6];
-	private BufferedImage crouchImages[] = new BufferedImage[2];
-	private BufferedImage LAttackImages[] = new BufferedImage[2];
-	private BufferedImage hitImages[] = new BufferedImage[2];
-	
 	public Player() throws Exception {
-		x = 150;
+		x = 200;
 		y = GROUND;
-		w = 200;
-		h = 300;
+		w = 320;
+		h = 400;
 		force=0;
 		speed = 0;
+		flip=false;
 		playerImg = ImageIO.read(Player.class.getResource(PLAYER_IMAGE));
 		loadIdleImages();
 		loadWalkImages();
@@ -29,107 +22,46 @@ public class Player extends CommonPlayer {
 	}
 	
 	private void loadHitImages(){
-		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
-		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
-		crouchImages[1] = playerImg.getSubimage(157,295,68,84);
+		hitImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(17,53,95,98)));
+		hitImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(120,53,95,98)));
+		hitImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(224,53,95,98)));
+		hitImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(327,53,95,98)));
 	}
 
 	private void loadIdleImages() {
-		idleImages[0] = playerImg.getSubimage(9,36,52,86);
-		idleImages[1] = playerImg.getSubimage(62,36,52,86);
-		idleImages[2] = playerImg.getSubimage(114,36,52,86);
-		idleImages[3] = playerImg.getSubimage(167,36,52,86);
-		idleImages[4] = playerImg.getSubimage(221,36,52,86);
-		idleImages[5] = playerImg.getSubimage(276,36,52,86);
+		idleImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(18,53,93,96)));
+		idleImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(122,53,92,96)));
+		idleImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(225,53,91,96)));
+		idleImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(328,53,92,96)));
 	}
 
 	private void loadWalkImages() {
-		walkImages[0] = playerImg.getSubimage(9,36,52,86);
-		walkImages[1] = playerImg.getSubimage(62,36,52,86);
-		walkImages[2] = playerImg.getSubimage(114,36,52,86);
-		walkImages[3] = playerImg.getSubimage(167,36,52,86);
-		walkImages[4] = playerImg.getSubimage(221,36,52,86);
-		walkImages[5] = playerImg.getSubimage(276,36,52,86);
+		walkImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(17,207,79,103)));
+		walkImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(104,207,79,103)));
+		walkImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(187,207,79,103)));
+		walkImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(271,207,79,103)));
+		walkImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(354,207,79,103)));
+		walkImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(437,207,79,103)));
 	}
 
 	private void loadJumpImages() {
-		jumpImages[0] = playerImg.getSubimage(9,36,52,86);
-		jumpImages[1] = playerImg.getSubimage(62,36,52,86);
-		jumpImages[2] = playerImg.getSubimage(114,36,52,86);
-		jumpImages[3] = playerImg.getSubimage(167,36,52,86);
-		jumpImages[4] = playerImg.getSubimage(221,36,52,86);
-		jumpImages[5] = playerImg.getSubimage(276,36,52,86);
+		jumpImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(18,53,93,96)));
+		jumpImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(122,53,92,96)));
+		jumpImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(225,53,91,96)));
+		jumpImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(328,53,92,96)));
 	}
 
 	private void loadCrouchImages() {
-		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
-		crouchImages[1] = playerImg.getSubimage(157,295,68,84);
+		crouchImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(18,53,93,96)));
+		crouchImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(122,53,92,96)));
+		crouchImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(225,53,91,96)));
+		crouchImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(328,53,92,96)));
 	}
 	private void loadLAttackImages() {
-		crouchImages[0] = playerImg.getSubimage(10,295,68,84);
-		crouchImages[1] = playerImg.getSubimage(157,295,68,84);
-	}
-	
-	public BufferedImage printIdle() {
-		isAttacking = false;
-		if(imageIndex >= 6) {
-			imageIndex = 0;
-		}
-		BufferedImage img = idleImages[imageIndex];
-		imageIndex++;
-		return img;
-	}
-
-	public BufferedImage printWalk() {
-		if(imageIndex >= 6) {
-			imageIndex = 0;
-			currentMove = WALK;
-			isAttacking=false;
-		}
-		isAttacking=true;
-		BufferedImage img = walkImages[imageIndex];
-		imageIndex++;
-		return img;
-	}
-	
-	public BufferedImage printJump() {
-		if(imageIndex >= 6) {
-			imageIndex = 0;
-			currentMove = JUMP;
-		}
-		BufferedImage img = jumpImages[imageIndex];
-		imageIndex++;
-		return img;
-	}
-
-	public BufferedImage printCrouch() {
-		if(imageIndex >= 2) {
-			imageIndex = 0;
-			currentMove = CROUCH;
-		}
-		BufferedImage img = crouchImages[imageIndex];
-		imageIndex++;
-		return img;
-	}
-
-	public BufferedImage printLAttack() {
-		if(imageIndex >= 2) {
-			imageIndex = 0;
-			currentMove = CROUCH;
-		}
-		BufferedImage img = LAttackImages[imageIndex];
-		imageIndex++;
-		return img;
-	}
-
-	public BufferedImage printHit() {
-		if(imageIndex >= 2) {
-			imageIndex = 0;
-			currentMove = CROUCH;
-		}
-		BufferedImage img = hitImages[imageIndex];
-		imageIndex++;
-		return img;
+		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(18,53,93,96)));
+		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(122,53,92,96)));
+		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(225,53,91,96)));
+		LAttackImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(328,53,92,96)));
 	}
 
 }
