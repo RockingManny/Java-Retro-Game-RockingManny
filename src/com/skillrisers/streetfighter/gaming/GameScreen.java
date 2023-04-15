@@ -20,9 +20,8 @@ public class GameScreen extends JFrame implements GameConstants {
 	public static void main(String[] args) {
 		
 		try {
-			GameScreen obj = new GameScreen();
+			new GameScreen();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

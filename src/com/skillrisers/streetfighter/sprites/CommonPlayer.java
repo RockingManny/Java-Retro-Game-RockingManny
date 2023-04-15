@@ -3,6 +3,8 @@ package com.skillrisers.streetfighter.sprites;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 import com.skillrisers.streetfighter.utils.GameConstants;
 
 public abstract class CommonPlayer implements GameConstants {
@@ -38,6 +40,13 @@ public abstract class CommonPlayer implements GameConstants {
 		}
 	}
 
+	protected ArrayList<BufferedImage> idleImages = new ArrayList<BufferedImage>();
+	protected ArrayList<BufferedImage> walkImages = new ArrayList<BufferedImage>();
+	protected ArrayList<BufferedImage> jumpImages = new ArrayList<BufferedImage>();
+	protected ArrayList<BufferedImage> crouchImages = new ArrayList<BufferedImage>();
+	protected ArrayList<BufferedImage> LAttackImages = new ArrayList<BufferedImage>();
+	protected ArrayList<BufferedImage> hitImages = new ArrayList<BufferedImage>();
+
 	protected int x;
 	protected int y;
 	protected int w;
@@ -47,12 +56,6 @@ public abstract class CommonPlayer implements GameConstants {
 	protected int currentMove;
 	protected int force;
 	protected BufferedImage playerImg;
-	public abstract BufferedImage printIdle();
-	public abstract BufferedImage printWalk();
-	public abstract BufferedImage printJump();
-	public abstract BufferedImage printCrouch();
-	public abstract BufferedImage printLAttack();
-	public abstract BufferedImage printHit();
 	protected boolean flip;
 	protected boolean isCollide;
 	protected boolean isAttacking;
@@ -79,8 +82,8 @@ public abstract class CommonPlayer implements GameConstants {
 	public int getH() {return h;}
 	public void setH(int h) {this.h = h;}
 	
-	// public int getForce() {return force;}
-	//	public void setForce(int force) {this.force = force;}
+	public int getForce() {return force;}
+		public void setForce(int force) {this.force = force;}
 
 	public int getSpeed() {return speed;}
 	public void setSpeed(int speed) {this.speed = speed;}
@@ -123,6 +126,70 @@ public abstract class CommonPlayer implements GameConstants {
 		}
 		
 	}
+
+		
+	public BufferedImage printIdle() {
+		isAttacking = false;
+		if(imageIndex >= idleImages.size()) {
+			imageIndex = 0;
+		}
+		BufferedImage img = idleImages.get(imageIndex);
+		imageIndex++;
+		return img;
+	}
+
+	public BufferedImage printWalk() {
+		if(imageIndex >= walkImages.size()) {
+			imageIndex = 0;
+			currentMove = WALK;
+			isAttacking=false;
+		}
+		isAttacking=true;
+		BufferedImage img = walkImages.get(imageIndex);
+		imageIndex++;
+		return img;
+	}
+
+	public BufferedImage printJump() {
+		if(imageIndex >= jumpImages.size()) {
+			imageIndex = 0;
+			currentMove = JUMP;
+		}
+		BufferedImage img = jumpImages.get(imageIndex);
+		imageIndex++;
+		return img;
+	}
+
+	public BufferedImage printCrouch() {
+		if(imageIndex >= crouchImages.size()) {
+			imageIndex = 0;
+			currentMove = CROUCH;
+		}
+		BufferedImage img = crouchImages.get(imageIndex);
+		imageIndex++;
+		return img;
+	}
+
+	public BufferedImage printLAttack() {
+		if(imageIndex >= LAttackImages.size()) {
+			imageIndex = 0;
+			currentMove = ATTACK;
+		}
+		BufferedImage img = LAttackImages.get(imageIndex);
+		imageIndex++;
+		return img;
+	}
+
+	public BufferedImage printHit() {
+		if(imageIndex >= hitImages.size()) {
+			imageIndex = 0;
+			currentMove = HIT;
+		}
+		BufferedImage img = hitImages.get(imageIndex);
+		imageIndex++;
+		return img;
+	}
+
 
 	public BufferedImage flip(BufferedImage sprite) {
         BufferedImage img = new BufferedImage(sprite.getWidth(),sprite.getHeight(),BufferedImage.TYPE_INT_ARGB);
