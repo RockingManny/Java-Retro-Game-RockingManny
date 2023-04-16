@@ -86,7 +86,7 @@ public class GameBoard extends JPanel implements GameConstants {
 	}
 
 
-	private boolean isCollide(){
+	private boolean isCollide(){ //NEED TO REDEFINE
 		int xDistance = Math.abs(player.getX() - oppPlayer.getX());
 		int yDistance = Math.abs(player.getY() - oppPlayer.getY());
 		int maxH = Math.max(player.getH(), oppPlayer.getH());
@@ -228,7 +228,7 @@ public class GameBoard extends JPanel implements GameConstants {
 						return;
 					}
 					oppPlayer.setCollide(false);
-					oppPlayer.setSpeed(-SPEED);
+					oppPlayer.setSpeed(-SPEED/4);
 					oppPlayer.move();
 
 					player.setCollide(false);
@@ -249,7 +249,7 @@ public class GameBoard extends JPanel implements GameConstants {
 						return;
 					}
 					oppPlayer.setCollide(false);
-					oppPlayer.setSpeed(SPEED);
+					oppPlayer.setSpeed(SPEED/4);
 					oppPlayer.move();
 					
 					player.setCollide(false);
