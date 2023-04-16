@@ -47,6 +47,7 @@ public class GameBoard extends JPanel implements GameConstants {
 				player.fall();
 				oppPlayer.fall();
 				collision();
+				powercall();
 			}
 
 		});
@@ -92,9 +93,27 @@ public class GameBoard extends JPanel implements GameConstants {
 
 	}
 
+	private void powercall() {
+		if(player.isPowerAttacking()) {player.power();}
+	}
+
+	private void powerCollision() {
+		if(player.getPowers().size()>0)
+		{
+			player.dispose_power(oppPlayer.getSpan());
+			if(player.isPowerSuccess()){
+				oppPlayer.setCurrentMove(HIT);
+				oppPlayerHealth.setHealth();
+				player.setPowerSuccess(false);
+			}
+		}
+		else if(oppPlayer.getPowers().size()>0)
+		{
+			player.dispose_power(oppPlayer.getSpan());
+		}
+	}
 	private void collision(){
-		System.out.println(player.getPowers().size());
-		if(isCollide()||player.isPowerSuccess()||oppPlayer.isPowerSuccess()){
+		if(isCollide()){
 			if(player.isAttacking()){
 				oppPlayer.setAttacking(false);
 				oppPlayer.setCurrentMove(HIT);
@@ -111,13 +130,13 @@ public class GameBoard extends JPanel implements GameConstants {
 			else if(!oppPlayer.isAttacking()){
 				player.setCurrentMove(IDLE);
 			}
-			System.out.println("Collision!!");
 			player.setCollide(true);
 		}
 		else{
 			player.setSpeed(SPEED);
 			player.setCollide(false);
 		}
+		powerCollision();
 	}
 
 	@Override
@@ -155,7 +174,8 @@ public class GameBoard extends JPanel implements GameConstants {
 				oppPlayer.setSpeed(0);
 				player.setCurrentMove(IDLE);
 				oppPlayer.setCurrentMove(IDLE);
-				player.dispose_power();
+				player.setPowerAttacking(false);
+				oppPlayer.setPowerAttacking(false);
 			}
 			
 			@Override
@@ -244,9 +264,8 @@ public class GameBoard extends JPanel implements GameConstants {
 
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					player.setCurrentMove(POWER);
-					// player.setAttacking(true);
-					player.power();
-					player.dispose_power();
+					player.setPowerAttacking(true);
+					
 				}
 				
 				if(e.getKeyCode() == KeyEvent.VK_Q) {

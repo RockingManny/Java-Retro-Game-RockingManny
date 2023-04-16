@@ -8,7 +8,7 @@ public class Player extends CommonPlayer {
 		w = 320;
 		h = 400;
 		x = 200;
-		y = GROUND - h;
+		y = GROUND;
 		force=0;
 		speed = 0;
 		flip=false;
@@ -67,11 +67,7 @@ public class Player extends CommonPlayer {
 		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(17,3445,87,101)));
 		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(106,3445,87,101)));
 		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(199,3445,87,101)));
-		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(199,3445,87,101)));
-		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(199,3445,87,101)));
 		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(290,3445,87,101)));
-		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(384,3445,87,101)));
-		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(384,3445,87,101)));
 		powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(384,3445,87,101)));
 		// powerImages.add(SpriteImageUtils.removeBackground(playerImg.getSubimage(467,3400,87,146)));
 	}

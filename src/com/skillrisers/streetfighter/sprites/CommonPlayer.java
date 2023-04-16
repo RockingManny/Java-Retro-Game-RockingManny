@@ -66,7 +66,7 @@ public abstract class CommonPlayer implements GameConstants {
 
 		public PowerEffect()
 		{
-			x_pw = getSpan()-30;
+			x_pw = (!isFlip())? (getSpan()-30):(getX()+30);
 			y_pw = (y+(getBase()-y)/2)-95;
 			w_pw = 39;
 			h_pw = 97;
@@ -92,11 +92,11 @@ public abstract class CommonPlayer implements GameConstants {
 		}
 
 		public void printPower(Graphics pen) {
-			dispose_power();
 			pen.drawImage(printPower(), x_pw, y_pw, w_pw, h_pw, null);
 			move_pw();
 		}
-		private void move_pw() {x_pw = x_pw + (speed);}
+		private void move_pw() {if(!isFlip()) x_pw = x_pw + (speed+90);
+								else x_pw = x_pw - (speed+90);}
 	}
 	protected ArrayList<BufferedImage> idleImages = new ArrayList<BufferedImage>();
 	protected ArrayList<BufferedImage> walkImages = new ArrayList<BufferedImage>();
@@ -123,10 +123,12 @@ public abstract class CommonPlayer implements GameConstants {
 	protected boolean isCrouching;
 	protected boolean isFlying;
 	protected boolean isFlyingNearGround;
-	
+	protected boolean isPowerAttacking;
 	protected boolean isPowerSuccess;
 
 
+	public boolean isPowerAttacking() {return isPowerAttacking;}
+	public void setPowerAttacking(boolean isPowerAttacking) {this.isPowerAttacking = isPowerAttacking;}
 	public boolean isPowerSuccess() {return isPowerSuccess;}
 	public void setPowerSuccess(boolean isPowerSuccess) {this.isPowerSuccess = isPowerSuccess;}
 	public int getHealth() {return health;}
@@ -175,12 +177,27 @@ public abstract class CommonPlayer implements GameConstants {
 	public ArrayList<PowerEffect> getPowers() {
 		return powers;
 	}
-	public void dispose_power() {
-		if(isPowerSuccess()||(powers.get(0).getPos())>=SCREENWIDTH)
-			powers.remove(0);
+	public void dispose_power(int pos) {
+		if(!isFlip())
+		{
+			if((powers.get(0).getPos())>=pos||powers.get(0).getPos()>=SCREENWIDTH)
+			{
+				powers.remove(0);
+				setPowerSuccess(true);
+			}
+		}
+		else
+		{
+			if((powers.get(0).getPos())<=pos||powers.get(0).getPos()<=0)
+			{
+				powers.remove(0);
+				setPowerSuccess(true);
+			}
+		}
 	}
 	public void power() {
 		powers.add(new PowerEffect());
+		setCurrentMove(IDLE);
 	}
 	public void move() {if(!isCollide){x = x + speed;}}
 	public void jump() {
@@ -254,6 +271,7 @@ public abstract class CommonPlayer implements GameConstants {
 		if(imageIndex >= idleImages.size()) {
 			imageIndex = 0;
 		}
+		setAttacking(false);
 		BufferedImage img = idleImages.get(imageIndex);
 		imageIndex++;
 		return img;
@@ -265,7 +283,6 @@ public abstract class CommonPlayer implements GameConstants {
 			currentMove = WALK;
 			isAttacking=false;
 		}
-		isAttacking=false;
 		BufferedImage img = walkImages.get(imageIndex);
 		imageIndex++;
 		return img;

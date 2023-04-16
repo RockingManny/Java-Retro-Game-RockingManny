@@ -8,7 +8,7 @@ public class OpponentPlayer extends CommonPlayer {
 		w = 320;
 		h = 400;
 		x = SCREENWIDTH - w - 200;
-		y = GROUND - h;
+		y = GROUND;
 		force=0;
 		speed = 0;
 		flip=false;
