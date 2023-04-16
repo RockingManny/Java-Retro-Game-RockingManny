@@ -178,26 +178,28 @@ public abstract class CommonPlayer implements GameConstants {
 		return powers;
 	}
 	public void dispose_power(int pos) {
-		if(!isFlip())
+		if(powers.size()>0)
 		{
-			if((powers.get(0).getPos())>=pos||powers.get(0).getPos()>=SCREENWIDTH)
+			if(!isFlip())
 			{
-				powers.remove(0);
-				setPowerSuccess(true);
+				if((powers.get(0).getPos())>=pos||powers.get(0).getPos()>=SCREENWIDTH)
+				{
+					powers.remove(0);
+					setPowerSuccess(true);
+				}
 			}
-		}
-		else
-		{
-			if((powers.get(0).getPos())<=pos||powers.get(0).getPos()<=0)
+			else
 			{
-				powers.remove(0);
-				setPowerSuccess(true);
+				if((powers.get(0).getPos())<=pos||powers.get(0).getPos()<=0)
+				{
+					powers.remove(0);
+					setPowerSuccess(true);
+				}
 			}
 		}
 	}
 	public void power() {
 		powers.add(new PowerEffect());
-		setCurrentMove(IDLE);
 	}
 	public void move() {if(!isCollide){x = x + speed;}}
 	public void jump() {
