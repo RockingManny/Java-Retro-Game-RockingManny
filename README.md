@@ -1,3 +1,3 @@
 # Java-Retro-Game
-## Created bt RockingManny
+## Created by RockingManny
 PvP Retro Game Build
