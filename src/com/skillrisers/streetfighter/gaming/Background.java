@@ -19,6 +19,7 @@ public class Background implements GameConstants{
     public void setX(int x) {this.x = x;}
     public int getY() {return y;}
     public void setY(int y) {this.y = y;}
+    public int getSpan() {return (x+w);}
     public Background(BufferedImage bg_img, int x, int y, int w, int h) throws Exception 
     {
         this.w = w;
@@ -30,5 +31,5 @@ public class Background implements GameConstants{
     public void paintBackground(Graphics pen) {
         pen.drawImage(bg_img, x, y, w, h, null);
     }
-    public void bg_move(int speed) {x = x + speed;}
+    public void bg_move(int speed) {if(getX()+speed<=0&&getSpan()+speed>=SCREENWIDTH){x = x + speed;}}
 }
