@@ -185,16 +185,16 @@ public class GameBoard extends JPanel implements GameConstants {
 						return;
 					}
 					player.setCollide(false);
-					player.setSpeed(-SPEED/4);
+					player.setSpeed(-(int)(SPEED/3));
 					player.move();
 
 					
 					oppPlayer.setCollide(false);
-					oppPlayer.setSpeed(SPEED/4);
+					oppPlayer.setSpeed((int)(SPEED/3));
 					oppPlayer.move();
 
-					background.bg_move(SPEED/4);
-					foreground.bg_move(SPEED/4);
+					background.bg_move((int)(SPEED/5.5));
+					foreground.bg_move((int)(SPEED/3));
 
 					// repaint();
 				}
@@ -207,15 +207,15 @@ public class GameBoard extends JPanel implements GameConstants {
 						return;
 					}
 					player.setCollide(false);
-					player.setSpeed(SPEED/4);
+					player.setSpeed((int)(SPEED/3));
 					player.move();
 
 					oppPlayer.setCollide(false);
-					oppPlayer.setSpeed(-SPEED/4);
+					oppPlayer.setSpeed(-(int)(SPEED/3));
 					oppPlayer.move();
 
-					background.bg_move(-SPEED/4);
-					foreground.bg_move(-SPEED/4);
+					background.bg_move(-(int)(SPEED/5.5));
+					foreground.bg_move(-(int)(SPEED/3));
 					// repaint();
 				}
 				
@@ -228,15 +228,15 @@ public class GameBoard extends JPanel implements GameConstants {
 						return;
 					}
 					oppPlayer.setCollide(false);
-					oppPlayer.setSpeed(-SPEED/4);
+					oppPlayer.setSpeed(-(int)(SPEED/3));
 					oppPlayer.move();
 
 					player.setCollide(false);
-					player.setSpeed(SPEED/4);
+					player.setSpeed((int)(SPEED/3));
 					player.move();
 					
-					background.bg_move(SPEED/4);
-					foreground.bg_move(SPEED/4);
+					background.bg_move((int)(SPEED/5.5));
+					foreground.bg_move((int)(SPEED/3));
 
 					// repaint();
 				}
@@ -249,15 +249,15 @@ public class GameBoard extends JPanel implements GameConstants {
 						return;
 					}
 					oppPlayer.setCollide(false);
-					oppPlayer.setSpeed(SPEED/4);
+					oppPlayer.setSpeed((int)(SPEED/3));
 					oppPlayer.move();
 					
 					player.setCollide(false);
-					player.setSpeed(-SPEED/4);
+					player.setSpeed(-(int)(SPEED/3));
 					player.move();
 
-					background.bg_move(-SPEED/4);
-					foreground.bg_move(-SPEED/4);
+					background.bg_move(-(int)(SPEED/5.5));
+					foreground.bg_move(-(int)(SPEED/3));
 					// repaint();
 				}
 				
