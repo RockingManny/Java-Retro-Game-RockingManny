@@ -152,8 +152,8 @@ public class GameBoard extends JPanel implements GameConstants {
 	}
 	private void paintBackground(Graphics pen) {
 		
-		pen.drawImage(bgImage, 0,0,SCREENWIDTH, SCREENHEIGHT, null);
-		pen.drawImage(fgImage, -300,GROUND-170,SCREENWIDTH+600, 300, null);
+		pen.drawImage(bgImage, -500,0,SCREENWIDTH+1000, SCREENHEIGHT, null);
+		pen.drawImage(fgImage, -800,GROUND-170,SCREENWIDTH+1600, 300, null);
 	}
 	
 	void bindEvents() {
