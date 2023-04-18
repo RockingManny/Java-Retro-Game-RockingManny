@@ -122,12 +122,12 @@ public class GameBoard extends JPanel implements GameConstants {
 				player.setCurrentMove(HIT);
 				playerHealth.setHealth();
 			}
-			else if(!player.isAttacking()&&!player.isPowerSuccess()){
-				oppPlayer.setCurrentMove(IDLE);
-			}
-			else if(!oppPlayer.isAttacking()&&!oppPlayer.isPowerSuccess()){
-				player.setCurrentMove(IDLE);
-			}
+			// else if(!player.isAttacking()&&!player.isPowerSuccess()){
+			// 	oppPlayer.setCurrentMove(IDLE);
+			// }
+			// else if(!oppPlayer.isAttacking()&&!oppPlayer.isPowerSuccess()){
+			// 	player.setCurrentMove(IDLE);
+			// }
 			player.setCollide(true);
 			player.setCollide(true);
 		}
