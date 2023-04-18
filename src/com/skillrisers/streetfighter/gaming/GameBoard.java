@@ -39,6 +39,7 @@ public class GameBoard extends JPanel implements GameConstants {
 		gameLoop();
 	}
 
+
 	private void gameLoop(){
 		timer = new Timer(130, new ActionListener() {
 			

@@ -9,7 +9,7 @@ public class GameScreen extends JFrame implements GameConstants {
 	public GameScreen() throws Exception {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(SCREENWIDTH, SCREENHEIGHT);
+		setExtendedState(MAXIMIZED_BOTH);
 		setLocationRelativeTo(null);
 		setTitle(TITLE);
 		GameBoard board = new GameBoard();
@@ -17,14 +17,5 @@ public class GameScreen extends JFrame implements GameConstants {
 		setVisible(true);
 	}
 	
-	public static void main(String[] args) {
-		
-		try {
-			new GameScreen();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 
 }
